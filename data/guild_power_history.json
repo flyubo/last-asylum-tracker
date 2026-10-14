@@ -1,12 +1,12 @@
 {
   "version": 1,
   "server_id": 139,
-  "updated_at": "2026-10-14T04:55:53.718123+00:00",
+  "updated_at": "2026-10-14T04:58:05.966621+00:00",
   "scope_note": "집계는 공개 랭킹 페이지에서 수집된 플레이어만 포함합니다. 전체 길드 전투력으로 단정할 수 없습니다.",
   "snapshots": [
     {
       "date": "2026-10-14",
-      "captured_at": "2026-10-14T04:55:53.718123+00:00",
+      "captured_at": "2026-10-14T04:58:05.966621+00:00",
       "server_id": 139,
       "source_url": "https://lastasylum.gg/en/leaderboard/servers/139",
       "source_player_count": 100,
