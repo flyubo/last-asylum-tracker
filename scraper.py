@@ -8,7 +8,7 @@ class ScrapeError(Exception):
     pass
 
 def source_url(server_id: int) -> str:
-    return f"https://lastasylum.gg/en/leaderboard/servers/{server_id}"
+    return f"https://lastasylum.gg/en/leaderboard/servers/{server_id}/heroes"
 
 def clean(value):
     return " ".join((value or "").replace("\xa0", " ").split())
