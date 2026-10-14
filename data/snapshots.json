@@ -1,7 +1,815 @@
 {
   "version": 1,
-  "updated_at": null,
+  "updated_at": "2026-10-14T03:50:53.835948+00:00",
   "servers": {
-    "149": []
+    "149": [
+      {
+        "captured_at": "2026-10-14T03:50:53.835948+00:00",
+        "server_id": 149,
+        "source_url": "https://lastasylum.gg/en/leaderboard/servers/149",
+        "rows": [
+          {
+            "rank": 1,
+            "player": "AGNESS",
+            "tag": "[KPG]",
+            "power": 252310911,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 2,
+            "player": "밤​​",
+            "tag": "[전설의]",
+            "power": 194919809,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 3,
+            "player": "もぐもぐ8989",
+            "tag": "[EDEN]",
+            "power": 160632565,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 4,
+            "player": "분⃝",
+            "tag": "[전설의]",
+            "power": 160357886,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 5,
+            "player": "빛모아",
+            "tag": "[KPG]",
+            "power": 157048465,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 6,
+            "player": "다크테라",
+            "tag": "[KPG]",
+            "power": 156845867,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 7,
+            "player": "똥⃨⃛⃝",
+            "tag": "[전설의]",
+            "power": 156303331,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 8,
+            "player": "Kотёноk",
+            "tag": "[UnO]",
+            "power": 151582983,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 9,
+            "player": "신",
+            "tag": "[전설의]",
+            "power": 150887262,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 10,
+            "player": "ᴶᴱᴺᴵɄᵾr",
+            "tag": "[KORe]",
+            "power": 149006817,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 11,
+            "player": "보라젤리",
+            "tag": "[KPG]",
+            "power": 145816152,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 12,
+            "player": "乂뻘乂",
+            "tag": "[전설의]",
+            "power": 144562530,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 13,
+            "player": "ぶり大根",
+            "tag": "[전설의]",
+            "power": 143762174,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 14,
+            "player": "おさたん",
+            "tag": "[EDEN]",
+            "power": 135516932,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 15,
+            "player": "ฅ나⃢루ฅ",
+            "tag": "[KORe]",
+            "power": 133223141,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 16,
+            "player": "소⃢금",
+            "tag": "[전설의]",
+            "power": 132053605,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 17,
+            "player": "타이순",
+            "tag": "[전설의]",
+            "power": 129812701,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 18,
+            "player": "담호호치6ㅅ6",
+            "tag": "[전설의]",
+            "power": 128572816,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 19,
+            "player": "真白-ましろ-",
+            "tag": "[JAL]",
+            "power": 127877919,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 20,
+            "player": "다̆쥬̆⃤",
+            "tag": "[KORe]",
+            "power": 127252124,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 21,
+            "player": "카사미아",
+            "tag": "[KPG]",
+            "power": 126838188,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 22,
+            "player": "フォント",
+            "tag": "[JAL]",
+            "power": 126673004,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 23,
+            "player": "적⃢월",
+            "tag": "[KORe]",
+            "power": 126166879,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 24,
+            "player": "쿵",
+            "tag": "[전설의]",
+            "power": 125601687,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 25,
+            "player": "AStorm",
+            "tag": "[UnO]",
+            "power": 125036156,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 26,
+            "player": "Wolfred24",
+            "tag": "[KPG]",
+            "power": 124027469,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 27,
+            "player": "加賀八雲",
+            "tag": "[JAL]",
+            "power": 123561024,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 28,
+            "player": "板さん",
+            "tag": "[EDEN]",
+            "power": 123398062,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 29,
+            "player": "후⃢추Huchu",
+            "tag": "[KORe]",
+            "power": 123334645,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 30,
+            "player": "꽃​",
+            "tag": "[전설의]",
+            "power": 123288148,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 31,
+            "player": "응큼한아재",
+            "tag": "[KPG]",
+            "power": 121823159,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 32,
+            "player": "Taliesin164",
+            "tag": "[UnO]",
+            "power": 121681792,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 33,
+            "player": "안고릴루아",
+            "tag": "[KPG]",
+            "power": 121435317,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 34,
+            "player": "드롭핑테이블",
+            "tag": "[KPG]",
+            "power": 120959014,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 35,
+            "player": "꽁알이엄마",
+            "tag": "[전설의]",
+            "power": 119744759,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 36,
+            "player": "Argvan",
+            "tag": "[UnO]",
+            "power": 119102073,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 37,
+            "player": "にいにい",
+            "tag": "[전설의]",
+            "power": 118631329,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 38,
+            "player": "ブブカラス",
+            "tag": "[KBC]",
+            "power": 118579371,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 39,
+            "player": "NeniBlou",
+            "tag": "[EcW]",
+            "power": 118533869,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 40,
+            "player": "Dillane",
+            "tag": "[KPG]",
+            "power": 118030541,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 41,
+            "player": "조⃢로",
+            "tag": "[KORe]",
+            "power": 117566305,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 42,
+            "player": "훈련무한",
+            "tag": "[취미생활]",
+            "power": 116855484,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 43,
+            "player": "TodaysWeather",
+            "tag": "[EDEN]",
+            "power": 116685543,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 44,
+            "player": "Domanna",
+            "tag": "[UnO]",
+            "power": 115247453,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 45,
+            "player": "neeet",
+            "tag": "[KBC]",
+            "power": 113390750,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 46,
+            "player": "핑크노을",
+            "tag": "[KPG]",
+            "power": 112777752,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 47,
+            "player": "찡이꺼",
+            "tag": "[KORe]",
+            "power": 112283464,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 48,
+            "player": "NANGA",
+            "tag": "[RIZ]",
+            "power": 112259582,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 49,
+            "player": "ПЭМ",
+            "tag": "[UnO]",
+            "power": 112079463,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 50,
+            "player": "vTokio",
+            "tag": "[UnO]",
+            "power": 111505917,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 51,
+            "player": "Duke°",
+            "tag": "[KPG]",
+            "power": 111416861,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 52,
+            "player": "Seraczi",
+            "tag": "[UnO]",
+            "power": 111222731,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 53,
+            "player": "Xenа",
+            "tag": "[KPG]",
+            "power": 111175287,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 54,
+            "player": "KKK13",
+            "tag": "[MPU]",
+            "power": 111065680,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 55,
+            "player": "WhySoSeriousOnr",
+            "tag": "[UnO]",
+            "power": 110845315,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 56,
+            "player": "もりみや",
+            "tag": "[sg1]",
+            "power": 110584673,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 57,
+            "player": "ᵀᴬᴷᴼᴾᴵ",
+            "tag": "[KPG]",
+            "power": 110077918,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 58,
+            "player": "달려~",
+            "tag": "[KPG]",
+            "power": 109766158,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 59,
+            "player": "한잔해부려~",
+            "tag": "[전설의]",
+            "power": 109702768,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 60,
+            "player": "두식쓰",
+            "tag": "[취미생활]",
+            "power": 109246495,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 61,
+            "player": "Viatoris",
+            "tag": "[MPU]",
+            "power": 108827476,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 62,
+            "player": "변⃝",
+            "tag": "[전설의]",
+            "power": 108224550,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 63,
+            "player": "내가고자라니",
+            "tag": "[KPG]",
+            "power": 108147480,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 64,
+            "player": "LoranDeMarcus",
+            "tag": "[UnO]",
+            "power": 107827820,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 65,
+            "player": "​​​​주",
+            "tag": "[KPG]",
+            "power": 107480072,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 66,
+            "player": "DouglasQuaid",
+            "tag": "[MPU]",
+            "power": 107424926,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 67,
+            "player": "멍⃞⃝",
+            "tag": "[전설의]",
+            "power": 107275546,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 68,
+            "player": "BigOrange",
+            "tag": "[JAL]",
+            "power": 107085315,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 69,
+            "player": "일곱난장이",
+            "tag": "",
+            "power": 106246459,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 70,
+            "player": "민트파이",
+            "tag": "[KPG]",
+            "power": 106203519,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 71,
+            "player": "Haxik",
+            "tag": "[KPG]",
+            "power": 106029412,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 72,
+            "player": "호야네",
+            "tag": "[전설의]",
+            "power": 105983170,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 73,
+            "player": "Hightower118",
+            "tag": "[KPG]",
+            "power": 105916238,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 74,
+            "player": "ひつじ1。",
+            "tag": "[RIZ]",
+            "power": 105571367,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 75,
+            "player": "ฅ냥ฅ",
+            "tag": "[전설의]",
+            "power": 105018034,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 76,
+            "player": "윤화사랑",
+            "tag": "[KN1]",
+            "power": 105011395,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 77,
+            "player": "헛둘셋",
+            "tag": "[KN1]",
+            "power": 104842395,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 78,
+            "player": "혀기혀기",
+            "tag": "[취미생활]",
+            "power": 104667104,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 79,
+            "player": "Dark유리아",
+            "tag": "[KPG]",
+            "power": 104184417,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 80,
+            "player": "Нафариан777",
+            "tag": "[KPG]",
+            "power": 104092163,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 81,
+            "player": "마루호두냐옹",
+            "tag": "[전설의]",
+            "power": 104013724,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 82,
+            "player": "えとちゃん",
+            "tag": "[전설의]",
+            "power": 103958253,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 83,
+            "player": "Valkiriya8",
+            "tag": "[UnO]",
+            "power": 103667104,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 84,
+            "player": "오⃟늘",
+            "tag": "[KPG]",
+            "power": 103587903,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 85,
+            "player": "alcheris",
+            "tag": "[KPG]",
+            "power": 102831110,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 86,
+            "player": "​​꼬",
+            "tag": "[전설의]",
+            "power": 102790060,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 87,
+            "player": "ビザンチン",
+            "tag": "[JAL]",
+            "power": 102755585,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 88,
+            "player": "징⃢베",
+            "tag": "[KORe]",
+            "power": 102443696,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 89,
+            "player": "ЯНеЯИЛопатаНеМоя",
+            "tag": "[OTSH]",
+            "power": 101578301,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 90,
+            "player": "sai2606",
+            "tag": "[KBC]",
+            "power": 101574478,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 91,
+            "player": "TaitaHanubis",
+            "tag": "[MPU]",
+            "power": 101343644,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 92,
+            "player": "✞Chile✞",
+            "tag": "[RIZ]",
+            "power": 101306404,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 93,
+            "player": "CROWDOCTOR",
+            "tag": "[취미생활]",
+            "power": 101206576,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 94,
+            "player": "뭐냐고",
+            "tag": "[취미생활]",
+            "power": 101177147,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 95,
+            "player": "통막걸리",
+            "tag": "[전설의]",
+            "power": 100720864,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 96,
+            "player": "훈​​",
+            "tag": "[전설의]",
+            "power": 100340631,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 97,
+            "player": "にゃんこ先生マダラ",
+            "tag": "[EDEN]",
+            "power": 100272311,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 98,
+            "player": "nikoruru",
+            "tag": "[RIZ]",
+            "power": 100117615,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 99,
+            "player": "0zero0",
+            "tag": "[MPU]",
+            "power": 99981407,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 100,
+            "player": "암천​",
+            "tag": "[전설의]",
+            "power": 99773571,
+            "power_delta": null,
+            "rank_change": null
+          }
+        ]
+      }
+    ]
   }
 }
