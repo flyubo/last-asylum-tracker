@@ -25,15 +25,15 @@ jobs:
           python-version: "3.12"
       - name: Install scraper dependencies
         run: pip install -r requirements.txt
-      - name: Collect server 149 leaderboard
-        run: python scripts/github_collect.py --server 149
+      - name: Collect server 139 leaderboard
+        run: python scripts/github_collect.py --server 139
       - name: Save collected history
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/snapshots.json
           if ! git diff --cached --quiet; then
-            git commit -m "Update daily server 149 ranking data"
+            git commit -m "Update daily server 139 ranking data"
             git push
           else
             echo "No data changes to commit."
