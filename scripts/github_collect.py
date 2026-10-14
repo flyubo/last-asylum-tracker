@@ -83,6 +83,6 @@ def main(server_id: int) -> None:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--server", type=int, default=149)
+    parser.add_argument("--server", type=int, default=139)
     args = parser.parse_args()
     main(args.server)
