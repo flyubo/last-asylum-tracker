@@ -34,7 +34,7 @@ def scrape_server(server_id: int):
         header_cells = []
         for idx, row in enumerate(rows):
             cells = [clean(c.get_text(" ", strip=True)).lower() for c in row.find_all(["th", "td"], recursive=False)]
-            if "player" in " ".join(cells) and "power" in " ".join(cells):
+            if "player" in " ".join(cells) and any("power" in h and "hero" in h and "total" in h for h in cells):
                 header_idx, header_cells = idx, cells
                 break
         if header_idx is None:
@@ -46,7 +46,10 @@ def scrape_server(server_id: int):
             return None
         player_i = find_col(["player"])
         tag_i = find_col(["tag", "alliance"])
-        power_i = find_col(["power"])
+        # Only accept the requested Hero Total Power field. Do not silently
+        # fall back to a generic "Power" column, which measures a different stat.
+        power_i = next((i for i, h in enumerate(header_cells)
+                        if "hero" in h and "power" in h and "total" in h), None)
         rank_i = find_col(["#", "rank"])
         if player_i is None or power_i is None:
             continue
@@ -68,4 +71,4 @@ def scrape_server(server_id: int):
                 result.append({"rank": int(rank_match.group()), "player": player, "tag": tag, "power": power})
         if result:
             return result, url
-    raise ScrapeError("공개 HTML에서 랭킹 표를 찾지 못했습니다. 사이트 HTML 구조가 바뀌었을 수 있습니다.")
+    raise ScrapeError("공개 HTML에서 'Hero Total Power(영웅 총 전투력)' 열을 찾지 못했습니다. 일반 Power 열로 대체하지 않았습니다. 사이트의 표기/HTML 구조를 확인해야 합니다.")
