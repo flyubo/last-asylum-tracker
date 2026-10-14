@@ -13,7 +13,7 @@
 <div class="bar"><label>서버 <input id="server" type="number" min="1" max="9999" value="139" style="width:90px"></label><label>기준일 <select id="date"><option value="latest">최신 기록</option></select></label><input id="search" placeholder="길드 태그 검색"><button id="reload">새로고침</button><button id="download">CSV 다운로드</button></div>
 <div class="cards"><div class="card"><div class="muted">집계 길드</div><div id="guildCount" class="big">—</div></div><div class="card"><div class="muted">수집 플레이어</div><div id="playerCount" class="big">—</div></div><div class="card"><div class="muted">영웅 총 영웅 총 전투력 합계</div><div id="totalPower" class="big">—</div></div><div class="card"><div class="muted">수집 시각</div><div id="captured" class="big">—</div></div></div>
 <section class="panel"><div class="panelhead"><b>길드별 순위</b><p id="scope" class="small">데이터 불러오는 중…</p></div><div class="tablewrap"><table><thead><tr><th>순위</th><th>길드 태그</th><th>영웅 총 전투력 합계</th><th>인원</th><th>점유율</th><th>비중</th><th>전일 대비</th></tr></thead><tbody id="rows"><tr><td colspan="7">불러오는 중…</td></tr></tbody></table></div><div id="status" class="status">데이터를 불러옵니다.</div></section>
-<section class="panel"><div class="panelhead"><b>길드별 영웅 총 전투력 추이</b><p class="small">선택한 서버의 최근 30회 수집 기록</p></div><canvas id="chart" class="chart" width="1100" height="260"></canvas><div id="chartStatus" class="status">기록이 쌓이면 추이가 표시됩니다.</div></section>
+<section class="panel"><div class="panelhead"><b>상위 10개 길드의 영웅 총 전투력 추이</b><p class="small">최신 기록 기준 상위 10개 길드의 최근 30회 변화</p></div><canvas id="chart" class="chart" width="1100" height="360"></canvas><div id="chartStatus" class="status">기록이 쌓이면 추이가 표시됩니다.</div></section>
 <section class="panel"><div class="panelhead"><b>선택한 길드의 구성원</b><p class="small">현재 공개 랭킹에 포착된 플레이어 기준</p></div><div class="tablewrap"><table><thead><tr><th>개인 순위</th><th>플레이어</th><th>길드 태그</th><th>영웅 총 전투력</th></tr></thead><tbody id="players"><tr><td colspan="4">길드를 선택하면 구성원이 표시됩니다.</td></tr></tbody></table></div></section>
 <section class="panel"><div class="help"><b>데이터 범위 안내</b><div class="notice">이 페이지의 길드별 영웅 총 전투력은 공개 랭킹 페이지에서 수집된 플레이어의 영웅 총 전투력 합계입니다. 원본이 상위 랭커 일부만 제공한다면 전체 길드 전투력이 아니며, 실제 전체 길드 순위와 다를 수 있습니다. 수집이 실패한 날에는 이전 기록을 보존합니다.</div><p>원본: <a id="source" href="https://lastasylum.gg/en/leaderboard/servers/139" target="_blank" rel="noopener">LastAsylum.gg 서버 랭킹</a></p></div></section>
 </main>
@@ -26,7 +26,52 @@ $("rows").innerHTML=shown.map(g=>{const delta=prevMap.has(g.tag)?g.total_power-p
 document.querySelectorAll(".guildpick").forEach(b=>b.onclick=()=>{selected=b.dataset.tag;renderPlayers()});if(!selected||!guilds.some(g=>g.tag===selected))selected=guilds[0]?.tag||null;renderPlayers();drawChart(history)}
 function previousDate(day){const d=new Date(day+"T12:00:00Z");d.setUTCDate(d.getUTCDate()-1);return d.toISOString().slice(0,10)}
 function renderPlayers(){const g=(activeSnapshot?.guilds||[]).find(x=>x.tag===selected);if(!g){$("players").innerHTML='<tr><td colspan="4">위 순위표에서 길드를 선택하세요.</td></tr>';return}$("players").innerHTML='<tr><td colspan="4"><b>'+esc(g.tag)+'</b> · '+fmt(g.total_power)+' · '+fmt(g.player_count)+'명</td></tr>'+(g.players||[]).map(p=>'<tr><td>'+fmt(p.rank)+'</td><td style="text-align:left">'+esc(p.player)+'</td><td style="text-align:left">'+esc(g.tag)+'</td><td>'+fmt(p.power)+'</td></tr>').join("")}
-function drawChart(history){const c=$("chart"),ctx=c.getContext("2d"),w=c.width,h=c.height;ctx.clearRect(0,0,w,h);const pts=history.slice(-30).map(s=>({date:s.date,total:s.tracked_total_power}));if(!pts.length){$("chartStatus").textContent="추이 데이터가 없습니다.";return}const vals=pts.map(p=>p.total),min=Math.min(...vals),max=Math.max(...vals),pad=70;ctx.strokeStyle="#33445f";ctx.beginPath();ctx.moveTo(pad,16);ctx.lineTo(pad,h-34);ctx.lineTo(w-16,h-34);ctx.stroke();const x=i=>pad+(pts.length===1?0:i*(w-pad-24)/(pts.length-1)),y=n=>h-34-(max===min?.5:(n-min)/(max-min))*(h-65);ctx.strokeStyle="#66a5ff";ctx.lineWidth=3;ctx.beginPath();vals.forEach((v,i)=>i?ctx.lineTo(x(i),y(v)):ctx.moveTo(x(i),y(v)));ctx.stroke();ctx.fillStyle="#a9b8ce";ctx.font="14px system-ui";ctx.fillText(fmt(max),4,22);ctx.fillText(fmt(min),4,h-36);ctx.fillText(pts[0].date,pad,h-9);ctx.fillText(pts[pts.length-1].date,w-100,h-9);$("chartStatus").textContent=pts.length+"회 기록 · 합계는 해당 시점에 수집된 랭커 기준"}
+function drawChart(history){
+ const c=$("chart"),ctx=c.getContext("2d"),w=c.width,h=c.height;
+ ctx.clearRect(0,0,w,h);
+ const snapshots=history.slice(-30);
+ if(!snapshots.length){$("chartStatus").textContent="추이 데이터가 없습니다.";return}
+ const latest=snapshots[snapshots.length-1];
+ const top=(latest.guilds||[]).slice().sort((a,b)=>(a.rank??9999)-(b.rank??9999)).slice(0,10);
+ if(!top.length){$("chartStatus").textContent="길드 데이터가 없습니다.";return}
+ const palette=["#66a5ff","#ff8888","#5ee0a0","#f7d27c","#c39bff","#ffad66","#5edce0","#f18ac4","#b6d86b","#a9b8ce"];
+ const series=top.map((g,i)=>({tag:g.tag,color:palette[i],values:snapshots.map(s=>{const found=(s.guilds||[]).find(x=>x.tag===g.tag);return found?Number(found.total_power):null})}));
+ const vals=series.flatMap(s=>s.values.filter(v=>v!==null&&Number.isFinite(v)));
+ if(!vals.length){$("chartStatus").textContent="추이 데이터가 없습니다.";return}
+ let min=Math.min(...vals),max=Math.max(...vals);
+ if(min===max){min=Math.max(0,min*0.95);max=max*1.05||1}
+ const left=78,right=24,topPad=18,plotBottom=h-104,plotH=plotBottom-topPad,plotW=w-left-right;
+ ctx.strokeStyle="#33445f";ctx.lineWidth=1;
+ for(let i=0;i<5;i++){
+   const yy=topPad+i*plotH/4;
+   ctx.beginPath();ctx.moveTo(left,yy);ctx.lineTo(w-right,yy);ctx.stroke();
+   const value=max-(max-min)*i/4;
+   ctx.fillStyle="#a9b8ce";ctx.font="12px system-ui";ctx.textAlign="right";
+   ctx.fillText(fmt(Math.round(value)),left-9,yy+4);
+ }
+ const x=i=>left+(snapshots.length===1?plotW/2:i*plotW/(snapshots.length-1));
+ const y=n=>topPad+(max-n)/(max-min)*plotH;
+ series.forEach(s=>{
+   ctx.strokeStyle=s.color;ctx.lineWidth=2.4;ctx.beginPath();let drawing=false;
+   s.values.forEach((v,i)=>{
+     if(v===null||!Number.isFinite(v)){drawing=false;return}
+     if(!drawing){ctx.moveTo(x(i),y(v));drawing=true}else ctx.lineTo(x(i),y(v));
+   });
+   ctx.stroke();
+   s.values.forEach((v,i)=>{if(v!==null&&Number.isFinite(v)&&snapshots.length<16){ctx.fillStyle=s.color;ctx.beginPath();ctx.arc(x(i),y(v),2.5,0,Math.PI*2);ctx.fill()}});
+ });
+ ctx.fillStyle="#a9b8ce";ctx.font="12px system-ui";ctx.textAlign="left";
+ ctx.fillText(snapshots[0].date,left,plotBottom+20);
+ ctx.textAlign="right";ctx.fillText(snapshots[snapshots.length-1].date,w-right,plotBottom+20);
+ // Two-column legend below the plot.
+ series.forEach((s,i)=>{
+   const col=i<5?0:1,row=i%5,xx=left+col*(plotW/2),yy=plotBottom+42+row*17;
+   ctx.fillStyle=s.color;ctx.fillRect(xx,yy-9,12,3);
+   ctx.fillStyle="#d5dfef";ctx.font="12px system-ui";ctx.textAlign="left";
+   ctx.fillText(s.tag.length>22?s.tag.slice(0,21)+"…":s.tag,xx+18,yy-5);
+ });
+ $("chartStatus").textContent="최근 "+snapshots.length+"회 기록 · 최신 기록 기준 상위 "+top.length+"개 길드 · 각 선은 길드별 영웅 총 전투력 합계";
+}
 function populateDates(){const history=historyForServer();$("date").innerHTML='<option value="latest">최신 기록</option>'+history.slice().reverse().map(s=>'<option value="'+esc(s.date)+'">'+esc(s.date)+'</option>').join("");$("date").value="latest"}
 async function load(){try{const r=await fetch("../data/guild_power_history.json?ts="+Date.now());if(!r.ok)throw Error("데이터 파일 HTTP "+r.status);data=await r.json();populateDates();render();$("status").textContent=activeSnapshot?"마지막 수집: "+new Date(activeSnapshot.captured_at).toLocaleString():"아직 수집 기록이 없습니다. GitHub Actions 실행 후 데이터가 표시됩니다."}catch(e){$("status").textContent="데이터를 불러오지 못했습니다: "+e.message+" · GitHub Pages 등 정적 호스팅에서 페이지를 열어 주세요."}}
 function downloadCsv(){const history=historyForServer(),snap=$("date").value==="latest"?history[history.length-1]:history.find(s=>s.date===$("date").value);if(!snap){$("status").textContent="다운로드할 기록이 없습니다.";return}const rows=[["date","server_id","rank","guild_tag","total_power","player_count","share_percent"],...(snap.guilds||[]).map(g=>[snap.date,snap.server_id,g.rank,g.tag,g.total_power,g.player_count,g.share_percent])];const csv="\ufeff"+rows.map(r=>r.map(v=>'"'+String(v??"").replace(/"/g,'""')+'"').join(",")).join("\r\n");const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv;charset=utf-8"}));a.download="guild-power-"+snap.server_id+"-"+snap.date+".csv";a.click();URL.revokeObjectURL(a.href)}
