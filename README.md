@@ -6,7 +6,7 @@ LastAsylum.gg의 공개 서버 랭킹 페이지를 하루 한 번 읽어 일별 
 
 - 워크플로: `.github/workflows/daily-collect.yml`
 - 실행 시간: 매일 UTC 23:00 = 한국 시간 다음 날 오전 08:00
-- 기본 서버: 149
+- 기본 서버: 139
 - 저장 위치: `data/snapshots.json`
 - 수동 실행: GitHub 저장소의 **Actions → Daily Last Asylum ranking collection → Run workflow**
 - 기록은 최대 365회까지 유지합니다.
@@ -25,7 +25,7 @@ LastAsylum.gg의 공개 서버 랭킹 페이지를 하루 한 번 읽어 일별 
 
 ## 수집 출처 및 제한
 
-- 서버 149 예시: https://lastasylum.gg/en/leaderboard/servers/149
+- 서버 139: https://lastasylum.gg/en/leaderboard/servers/139
 - 공개 HTML을 읽습니다. 비공개 또는 미문서화 API를 사용하지 않습니다.
 - 사이트의 HTML 구조 변경이나 자동 요청 차단으로 수집이 실패할 수 있습니다.
 - HTTP 403/429가 발생하면 접근 정책과 허용된 방법을 확인하고 우회하지 마세요.
@@ -37,7 +37,7 @@ LastAsylum.gg의 공개 서버 랭킹 페이지를 하루 한 번 읽어 일별 
 다른 서버를 자동 수집하려면 `.github/workflows/daily-collect.yml` 안의 다음 명령을 변경하세요.
 
 ```yaml
-run: python scripts/github_collect.py --server 149
+run: python scripts/github_collect.py --server 139
 ```
 
 `index.html`은 선택한 서버의 기록을 `data/snapshots.json`에서 읽습니다. 서버 ID는 워크플로에 추가로 수집되도록 설정해야 기록이 생깁니다.
