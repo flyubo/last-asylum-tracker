@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-14T03:55:04.421938+00:00",
+  "updated_at": "2026-10-14T23:15:09.271442+00:00",
   "servers": {
     "139": [
       {
@@ -805,6 +805,813 @@
             "player": "GREMLiN",
             "tag": "[RaS]",
             "power": 105215403,
+            "power_delta": null,
+            "rank_change": null
+          }
+        ]
+      },
+      {
+        "captured_at": "2026-10-14T23:15:09.271442+00:00",
+        "server_id": 139,
+        "source_url": "https://lastasylum.gg/en/leaderboard/servers/139/heroes",
+        "rows": [
+          {
+            "rank": 1,
+            "player": "망⃢고Mango",
+            "tag": "[HUG]",
+            "power": 105670997,
+            "power_delta": -104121186,
+            "rank_change": 1
+          },
+          {
+            "rank": 2,
+            "player": "꼬질꼬질",
+            "tag": "[TOK]",
+            "power": 103594273,
+            "power_delta": -112766834,
+            "rank_change": -1
+          },
+          {
+            "rank": 3,
+            "player": "리빙아마도",
+            "tag": "[HUG]",
+            "power": 96802320,
+            "power_delta": -80697676,
+            "rank_change": 2
+          },
+          {
+            "rank": 4,
+            "player": "제⃢티ZETTY",
+            "tag": "[HUG]",
+            "power": 92998166,
+            "power_delta": -55918638,
+            "rank_change": 9
+          },
+          {
+            "rank": 5,
+            "player": "レインコート",
+            "tag": "[JOKA]",
+            "power": 91378085,
+            "power_delta": -66924818,
+            "rank_change": 4
+          },
+          {
+            "rank": 6,
+            "player": "현생이중요",
+            "tag": "[TOK]",
+            "power": 89889173,
+            "power_delta": -89121752,
+            "rank_change": -2
+          },
+          {
+            "rank": 7,
+            "player": "こいにゅ",
+            "tag": "[JOKA]",
+            "power": 89373154,
+            "power_delta": -85181310,
+            "rank_change": -1
+          },
+          {
+            "rank": 8,
+            "player": "샤⃢갈",
+            "tag": "[HUG]",
+            "power": 89143434,
+            "power_delta": -67964685,
+            "rank_change": 2
+          },
+          {
+            "rank": 9,
+            "player": "치아뿌라",
+            "tag": "[HUG]",
+            "power": 87128639,
+            "power_delta": -101227143,
+            "rank_change": -6
+          },
+          {
+            "rank": 10,
+            "player": "転生したらウンコでした",
+            "tag": "[NAGI]",
+            "power": 84084035,
+            "power_delta": -59626872,
+            "rank_change": 4
+          },
+          {
+            "rank": 11,
+            "player": "쫌쪼미",
+            "tag": "[TOK]",
+            "power": 81319257,
+            "power_delta": -81867457,
+            "rank_change": -3
+          },
+          {
+            "rank": 12,
+            "player": "소⃢풍Picnic",
+            "tag": "[HUG]",
+            "power": 79386613,
+            "power_delta": -86893860,
+            "rank_change": -5
+          },
+          {
+            "rank": 13,
+            "player": "AZZURE",
+            "tag": "[HUG]",
+            "power": 75914885,
+            "power_delta": -74384005,
+            "rank_change": -1
+          },
+          {
+            "rank": 14,
+            "player": "転生してもタカダだった件",
+            "tag": "[JOKA]",
+            "power": 75569849,
+            "power_delta": -41096086,
+            "rank_change": 45
+          },
+          {
+            "rank": 15,
+            "player": "식집사",
+            "tag": "[TOK]",
+            "power": 74313548,
+            "power_delta": -54827246,
+            "rank_change": 20
+          },
+          {
+            "rank": 16,
+            "player": "낭만DOCTOR",
+            "tag": "[TOK]",
+            "power": 74163944,
+            "power_delta": -79150758,
+            "rank_change": -5
+          },
+          {
+            "rank": 17,
+            "player": "もちくる",
+            "tag": "[GTk]",
+            "power": 72816227,
+            "power_delta": -56489757,
+            "rank_change": 17
+          },
+          {
+            "rank": 18,
+            "player": "ラクター",
+            "tag": "[NAGI]",
+            "power": 72706415,
+            "power_delta": -66556384,
+            "rank_change": 3
+          },
+          {
+            "rank": 19,
+            "player": "릴⃢리LILY",
+            "tag": "[HUG]",
+            "power": 72526120,
+            "power_delta": -69737130,
+            "rank_change": -3
+          },
+          {
+            "rank": 20,
+            "player": "란란즈•RanRanz",
+            "tag": "[HUG]",
+            "power": 70122895,
+            "power_delta": -71152469,
+            "rank_change": -2
+          },
+          {
+            "rank": 21,
+            "player": "isBack",
+            "tag": "[HUG]",
+            "power": 69532026,
+            "power_delta": -58714319,
+            "rank_change": 17
+          },
+          {
+            "rank": 22,
+            "player": "紫雲清夏-sumika-",
+            "tag": "[HUG]",
+            "power": 69294817,
+            "power_delta": -69799390,
+            "rank_change": 0
+          },
+          {
+            "rank": 23,
+            "player": "미⃢밍MiMing",
+            "tag": "[HUG]",
+            "power": 69231775,
+            "power_delta": -61927089,
+            "rank_change": 4
+          },
+          {
+            "rank": 24,
+            "player": "HANBANDO",
+            "tag": "[TOK]",
+            "power": 68837162,
+            "power_delta": -63441670,
+            "rank_change": 1
+          },
+          {
+            "rank": 25,
+            "player": "눈오는밤҉snow",
+            "tag": "[TOK]",
+            "power": 68692365,
+            "power_delta": -72533533,
+            "rank_change": -6
+          },
+          {
+            "rank": 26,
+            "player": "KyTy3oB",
+            "tag": "[NICE]",
+            "power": 68684441,
+            "power_delta": -61322250,
+            "rank_change": 6
+          },
+          {
+            "rank": 27,
+            "player": "Giveit",
+            "tag": "[HUG]",
+            "power": 68568148,
+            "power_delta": -61838663,
+            "rank_change": 3
+          },
+          {
+            "rank": 28,
+            "player": "테르다온",
+            "tag": "",
+            "power": 68524257,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 29,
+            "player": "ThePASHA",
+            "tag": "[TOK]",
+            "power": 67865599,
+            "power_delta": -73980655,
+            "rank_change": -12
+          },
+          {
+            "rank": 30,
+            "player": "확실이사살",
+            "tag": "",
+            "power": 67700964,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 31,
+            "player": "konsta",
+            "tag": "[BST]",
+            "power": 67688810,
+            "power_delta": -57476316,
+            "rank_change": 10
+          },
+          {
+            "rank": 32,
+            "player": "はむはむ はむすたー",
+            "tag": "[JOKA]",
+            "power": 67151303,
+            "power_delta": -61776097,
+            "rank_change": 5
+          },
+          {
+            "rank": 33,
+            "player": "きょうへい",
+            "tag": "[JOKA]",
+            "power": 66897937,
+            "power_delta": -48510298,
+            "rank_change": 29
+          },
+          {
+            "rank": 34,
+            "player": "딸⃢바MILK",
+            "tag": "[HUG]",
+            "power": 66784363,
+            "power_delta": -52792975,
+            "rank_change": 18
+          },
+          {
+            "rank": 35,
+            "player": "AeroK",
+            "tag": "[HUG]",
+            "power": 66020482,
+            "power_delta": -56801556,
+            "rank_change": 8
+          },
+          {
+            "rank": 36,
+            "player": "türker",
+            "tag": "[HUG]",
+            "power": 65353391,
+            "power_delta": -60850072,
+            "rank_change": 4
+          },
+          {
+            "rank": 37,
+            "player": "Saylok",
+            "tag": "[TOK]",
+            "power": 65350268,
+            "power_delta": -66511367,
+            "rank_change": -11
+          },
+          {
+            "rank": 38,
+            "player": "つきみやび",
+            "tag": "[JOKA]",
+            "power": 64896820,
+            "power_delta": -52808900,
+            "rank_change": 17
+          },
+          {
+            "rank": 39,
+            "player": "とらっぺ",
+            "tag": "[NAGI]",
+            "power": 64603122,
+            "power_delta": -75300194,
+            "rank_change": -19
+          },
+          {
+            "rank": 40,
+            "player": "Caspius",
+            "tag": "[TOK]",
+            "power": 64513148,
+            "power_delta": -52266699,
+            "rank_change": 18
+          },
+          {
+            "rank": 41,
+            "player": "鋼太郎-KOTARO-",
+            "tag": "[JOKA]",
+            "power": 64460080,
+            "power_delta": -66137173,
+            "rank_change": -12
+          },
+          {
+            "rank": 42,
+            "player": "ダリヤ",
+            "tag": "",
+            "power": 64323655,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 43,
+            "player": "파천V",
+            "tag": "[HUG]",
+            "power": 63961584,
+            "power_delta": -49350939,
+            "rank_change": 23
+          },
+          {
+            "rank": 44,
+            "player": "エイボル",
+            "tag": "[JOKA]",
+            "power": 63890521,
+            "power_delta": -43076688,
+            "rank_change": 48
+          },
+          {
+            "rank": 45,
+            "player": "БоеваяЗая",
+            "tag": "[NICE]",
+            "power": 63723213,
+            "power_delta": -66579235,
+            "rank_change": -14
+          },
+          {
+            "rank": 46,
+            "player": "わたぬきさん・watanuki",
+            "tag": "[PxC]",
+            "power": 63354134,
+            "power_delta": -58051693,
+            "rank_change": 2
+          },
+          {
+            "rank": 47,
+            "player": "씨앗이싹트면",
+            "tag": "[HUG]",
+            "power": 62862125,
+            "power_delta": -70023107,
+            "rank_change": -23
+          },
+          {
+            "rank": 48,
+            "player": "Trusishka",
+            "tag": "[NICE]",
+            "power": 62746379,
+            "power_delta": -49886215,
+            "rank_change": 21
+          },
+          {
+            "rank": 49,
+            "player": "LadyMcDeath",
+            "tag": "[TOK]",
+            "power": 62681128,
+            "power_delta": -68074209,
+            "rank_change": -21
+          },
+          {
+            "rank": 50,
+            "player": "체리맛사과",
+            "tag": "[HUG]",
+            "power": 62504616,
+            "power_delta": -65363014,
+            "rank_change": -11
+          },
+          {
+            "rank": 51,
+            "player": "MissRill",
+            "tag": "[TOK]",
+            "power": 62178859,
+            "power_delta": -81181987,
+            "rank_change": -36
+          },
+          {
+            "rank": 52,
+            "player": "생강양°ginger",
+            "tag": "[HUG]",
+            "power": 62095285,
+            "power_delta": -47156451,
+            "rank_change": 27
+          },
+          {
+            "rank": 53,
+            "player": "인스파⃤",
+            "tag": "[HUG]",
+            "power": 62020273,
+            "power_delta": -61743842,
+            "rank_change": -11
+          },
+          {
+            "rank": 54,
+            "player": "猫シップ",
+            "tag": "[GTk]",
+            "power": 61999854,
+            "power_delta": -59568128,
+            "rank_change": -8
+          },
+          {
+            "rank": 55,
+            "player": "マキノ",
+            "tag": "[JOKA]",
+            "power": 61759935,
+            "power_delta": -55417620,
+            "rank_change": 2
+          },
+          {
+            "rank": 56,
+            "player": "Azacel",
+            "tag": "[TOK]",
+            "power": 61405210,
+            "power_delta": -58496810,
+            "rank_change": -6
+          },
+          {
+            "rank": 57,
+            "player": "Hhaha🩵",
+            "tag": "[TOK]",
+            "power": 61321815,
+            "power_delta": -74576476,
+            "rank_change": -34
+          },
+          {
+            "rank": 58,
+            "player": "redhat",
+            "tag": "[TOK]",
+            "power": 60650371,
+            "power_delta": -50829501,
+            "rank_change": 15
+          },
+          {
+            "rank": 59,
+            "player": "포⃢세-poseidon",
+            "tag": "[HUG]",
+            "power": 60648697,
+            "power_delta": -61154797,
+            "rank_change": -15
+          },
+          {
+            "rank": 60,
+            "player": "굿데이~",
+            "tag": "",
+            "power": 60465728,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 61,
+            "player": "sas4",
+            "tag": "[HUG]",
+            "power": 59582444,
+            "power_delta": -61892987,
+            "rank_change": -14
+          },
+          {
+            "rank": 62,
+            "player": "АрЧИ",
+            "tag": "[NICE]",
+            "power": 59477420,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 63,
+            "player": "부⃢기갈매기",
+            "tag": "[HUG]",
+            "power": 59273954,
+            "power_delta": -48703418,
+            "rank_change": 20
+          },
+          {
+            "rank": 64,
+            "player": "빠이빠이빠이",
+            "tag": "",
+            "power": 59210808,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 65,
+            "player": "Дубна",
+            "tag": "[Z0V]",
+            "power": 59125465,
+            "power_delta": -62663537,
+            "rank_change": -20
+          },
+          {
+            "rank": 66,
+            "player": "ReiB",
+            "tag": "[REI]",
+            "power": 58834271,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 67,
+            "player": "WeirdBeårdxX",
+            "tag": "[TOK]",
+            "power": 58768067,
+            "power_delta": -57328612,
+            "rank_change": -6
+          },
+          {
+            "rank": 68,
+            "player": "HIŊG",
+            "tag": "[HUG]",
+            "power": 58692654,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 69,
+            "player": "Furkan61",
+            "tag": "[TOK]",
+            "power": 58691775,
+            "power_delta": -71300303,
+            "rank_change": -36
+          },
+          {
+            "rank": 70,
+            "player": "로⃢탄",
+            "tag": "[HUG]",
+            "power": 57541632,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 71,
+            "player": "°Пастырь°",
+            "tag": "[RaS]",
+            "power": 57364700,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 72,
+            "player": "がぜる",
+            "tag": "[PxC]",
+            "power": 57338454,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 73,
+            "player": "Hollyna",
+            "tag": "[TOK]",
+            "power": 57327870,
+            "power_delta": -62314837,
+            "rank_change": -22
+          },
+          {
+            "rank": 74,
+            "player": "葉っぱ隊隊長",
+            "tag": "[NAGI]",
+            "power": 57158874,
+            "power_delta": -55719205,
+            "rank_change": -6
+          },
+          {
+            "rank": 75,
+            "player": "moniak06",
+            "tag": "[BST]",
+            "power": 56877962,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 76,
+            "player": "杜の都-Miyako",
+            "tag": "[HUG]",
+            "power": 56640934,
+            "power_delta": -54064035,
+            "rank_change": 0
+          },
+          {
+            "rank": 77,
+            "player": "Seaa",
+            "tag": "[TOK]",
+            "power": 56555626,
+            "power_delta": -49695767,
+            "rank_change": 20
+          },
+          {
+            "rank": 78,
+            "player": "타묙치Mola⃤",
+            "tag": "",
+            "power": 56462876,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 79,
+            "player": "ㆍAKIRAㆍ",
+            "tag": "[HUG]",
+            "power": 56420099,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 80,
+            "player": "Мих82",
+            "tag": "[RaS]",
+            "power": 56416435,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 81,
+            "player": "Rease",
+            "tag": "[JOKA]",
+            "power": 56000029,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 82,
+            "player": "HARRIER01",
+            "tag": "[JOKA]",
+            "power": 55730809,
+            "power_delta": -64877671,
+            "rank_change": -33
+          },
+          {
+            "rank": 83,
+            "player": "ХанаЧеловечки",
+            "tag": "[Z0V]",
+            "power": 55579648,
+            "power_delta": -60884039,
+            "rank_change": -23
+          },
+          {
+            "rank": 84,
+            "player": "PearlFlame",
+            "tag": "[NICE]",
+            "power": 55200659,
+            "power_delta": -56269379,
+            "rank_change": -10
+          },
+          {
+            "rank": 85,
+            "player": "마메쏙드러●MAMESSOK",
+            "tag": "[HUG]",
+            "power": 55077734,
+            "power_delta": -51116038,
+            "rank_change": 13
+          },
+          {
+            "rank": 86,
+            "player": "くまえり",
+            "tag": "[Row]",
+            "power": 55076238,
+            "power_delta": -62960334,
+            "rank_change": -32
+          },
+          {
+            "rank": 87,
+            "player": "モソモソ",
+            "tag": "[NAGI]",
+            "power": 54908292,
+            "power_delta": -52359006,
+            "rank_change": 4
+          },
+          {
+            "rank": 88,
+            "player": "雷帝☆フェイト-T",
+            "tag": "[CMR]",
+            "power": 54594184,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 89,
+            "player": "나무아멘타불",
+            "tag": "[HUG]",
+            "power": 54502248,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 90,
+            "player": "あき0811",
+            "tag": "[JOKA]",
+            "power": 54438762,
+            "power_delta": -60212569,
+            "rank_change": -26
+          },
+          {
+            "rank": 91,
+            "player": "AviRox",
+            "tag": "[NICE]",
+            "power": 54347248,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 92,
+            "player": "Miklaus",
+            "tag": "[NICE]",
+            "power": 54092938,
+            "power_delta": -58085692,
+            "rank_change": -21
+          },
+          {
+            "rank": 93,
+            "player": "kozy",
+            "tag": "[NAGI]",
+            "power": 54017892,
+            "power_delta": -63210716,
+            "rank_change": -37
+          },
+          {
+            "rank": 94,
+            "player": "《ギンジ》",
+            "tag": "[PxC]",
+            "power": 53972220,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 95,
+            "player": "꺼억",
+            "tag": "[TOK]",
+            "power": 53920111,
+            "power_delta": -59044903,
+            "rank_change": -28
+          },
+          {
+            "rank": 96,
+            "player": "ツリメのいい小娘",
+            "tag": "[PxC]",
+            "power": 53794014,
+            "power_delta": -54420284,
+            "rank_change": -14
+          },
+          {
+            "rank": 97,
+            "player": "きたあかり",
+            "tag": "[JOKA]",
+            "power": 53567110,
+            "power_delta": null,
+            "rank_change": null
+          },
+          {
+            "rank": 98,
+            "player": "GREMLiN",
+            "tag": "[RaS]",
+            "power": 53097273,
+            "power_delta": -52118130,
+            "rank_change": 2
+          },
+          {
+            "rank": 99,
+            "player": "Паяц",
+            "tag": "[NICE]",
+            "power": 52614587,
+            "power_delta": -54675431,
+            "rank_change": -9
+          },
+          {
+            "rank": 100,
+            "player": "ウォッシュ",
+            "tag": "[JOKA]",
+            "power": 52572154,
             "power_delta": null,
             "rank_change": null
           }
