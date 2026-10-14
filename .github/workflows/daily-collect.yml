@@ -1,0 +1,40 @@
+name: Daily Last Asylum ranking collection
+
+on:
+  schedule:
+    # 23:00 UTC = 08:00 Korea Standard Time (next day)
+    - cron: "0 23 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-ranking-collection
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install scraper dependencies
+        run: pip install -r requirements.txt
+      - name: Collect server 149 leaderboard
+        run: python scripts/github_collect.py --server 149
+      - name: Save collected history
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/snapshots.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Update daily server 149 ranking data"
+            git push
+          else
+            echo "No data changes to commit."
+          fi
