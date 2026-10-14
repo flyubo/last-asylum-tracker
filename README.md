@@ -1,41 +1,47 @@
-# Last Asylum Private Online Ranking Tracker
+# Last Asylum 랭킹 트래커
 
-배포 가능한 비공개 랭킹 대시보드입니다. FastAPI, PostgreSQL, 일일 Render Cron Job, HTTP Basic 인증, CSV 내보내기와 30일 추이를 포함합니다.
+LastAsylum.gg의 공개 서버 랭킹 페이지를 하루 한 번 읽어 일별 스냅샷을 저장하는 개인용 트래커입니다.
 
-## 수집 방식과 검증 상태
+## GitHub 무료 자동 수집
 
-공개 랭킹 페이지 HTML을 읽습니다. 확인되지 않은 비공개/미문서화 API는 사용하지 않습니다.
-- 글로벌 랭킹: https://lastasylum.gg/en/leaderboard/players/power
+- 워크플로: `.github/workflows/daily-collect.yml`
+- 실행 시간: 매일 UTC 23:00 = 한국 시간 다음 날 오전 08:00
+- 기본 서버: 149
+- 저장 위치: `data/snapshots.json`
+- 수동 실행: GitHub 저장소의 **Actions → Daily Last Asylum ranking collection → Run workflow**
+- 기록은 최대 365회까지 유지합니다.
+
+이 구성은 상시 서버 없이 GitHub Actions로 수집하고 JSON 기록을 저장합니다. 비공개 저장소의 Actions 실행은 GitHub Free 월간 무료 사용량에 포함되며, 계정의 사용량 한도를 넘으면 추가 요금 또는 실행 제한이 생길 수 있습니다. 실행 시간을 짧게 유지하고 Billing의 Actions 사용량을 확인하세요.
+
+## 대시보드
+
+`index.html`은 정적 대시보드입니다. GitHub Pages로 게시하면 브라우저에서 검색·정렬·추이 확인이 가능합니다. 다만 GitHub Free에서는 Pages 공개 범위가 저장소 공개 설정에 따라 달라질 수 있습니다. 저장소를 공개로 바꾸면 소스 코드와 `data/snapshots.json`의 기록도 누구나 볼 수 있으므로, **사용자 동의 없이 저장소를 공개로 전환하지 마세요.**
+
+현재 저장소가 비공개라면:
+1. Actions 탭에서 워크플로가 활성화되어 있는지 확인합니다.
+2. **Actions → Daily Last Asylum ranking collection → Run workflow**로 최초 수집을 시험합니다.
+3. 성공 후 `data/snapshots.json`에 데이터가 기록되었는지 확인합니다.
+4. 대시보드를 온라인에 게시하려면 저장소 공개 전환에 동의하거나, Pages가 비공개 저장소를 지원하는 유료 플랜을 이용해야 할 수 있습니다.
+
+## 수집 출처 및 제한
+
 - 서버 149 예시: https://lastasylum.gg/en/leaderboard/servers/149
-
-클라우드에서 자동 HTTP 요청이 허용되는지와 HTML 구조가 파서와 맞는지는 아직 검증되지 않았습니다. 첫 배포 후 대시보드에서 **지금 수집**을 눌러 확인하세요. 403/429가 발생하거나 구조가 바뀌면 우회하지 말고 접근 정책과 허용된 방법을 확인하세요.
-
-## Render 배포
-1. 이 비공개 GitHub 저장소를 Render에 연결합니다.
-2. Render에서 **New → Blueprint**를 선택하고 저장소의 `render.yaml`을 적용합니다.
-3. 생성될 웹 서비스, Cron 작업, PostgreSQL 데이터베이스와 요금을 검토합니다. 설정은 유료 플랜을 사용하므로 적용 전 현재 가격을 확인하세요.
-4. 환경변수 `DASHBOARD_USERNAME`, `DASHBOARD_PASSWORD`를 설정합니다. 비밀번호는 코드나 GitHub에 저장하지 마세요.
-5. 배포가 끝나면 웹 서비스의 `onrender.com` 주소를 열고 Basic Auth로 로그인합니다.
-6. **지금 수집**을 눌러 데이터가 저장되는지 확인합니다.
-
-## 자동 수집
-`render.yaml`의 `0 23 * * *` UTC는 한국 시간으로 다음 날 오전 8시입니다. Cron 로그에서 성공 여부를 확인하세요.
-
-## 보안 및 제한
-- `/health`를 제외한 대시보드와 API는 HTTP Basic 인증을 요구합니다.
-- 저장소는 비공개로 유지하고, 배포 URL과 로그인 정보를 공개하지 마세요.
-- 웹 서비스 URL 자체는 인터넷에서 접근 가능하며 대시보드에 인증이 적용됩니다. 더 강한 네트워크 수준의 비공개가 필요하면 별도 접근 제어/VPN을 구성해야 합니다.
-- Render의 로컬 파일시스템은 영구 저장소가 아니므로 PostgreSQL을 사용합니다.
-- 플레이어 식별은 이름과 길드 태그 조합입니다. 변경 시 별개 플레이어처럼 보일 수 있습니다.
-- 최초 수집 전의 과거 기록은 복원하지 않습니다. 사이트의 이용약관과 요청 제한을 준수하세요.
+- 공개 HTML을 읽습니다. 비공개 또는 미문서화 API를 사용하지 않습니다.
+- 사이트의 HTML 구조 변경이나 자동 요청 차단으로 수집이 실패할 수 있습니다.
+- HTTP 403/429가 발생하면 접근 정책과 허용된 방법을 확인하고 우회하지 마세요.
+- 플레이어 식별은 이름과 길드 태그 기준이며, 이름/태그가 바뀌면 다른 플레이어처럼 표시될 수 있습니다.
+- 과거 데이터는 최초 수집 시점부터 쌓입니다.
 
 ## 서버 변경
-대시보드에서 서버 ID를 입력하면 수동 수집할 수 있습니다. 일일 Cron은 `render.yaml`의 `python worker.py --server 149`에 설정된 서버만 수집합니다.
 
-## 로컬 테스트
-Python 3.10+ 및 PostgreSQL이 필요합니다.
-```bash
-pip install -r requirements.txt
-# DATABASE_URL, DASHBOARD_USERNAME, DASHBOARD_PASSWORD 환경변수를 설정
-uvicorn app:app --reload
+다른 서버를 자동 수집하려면 `.github/workflows/daily-collect.yml` 안의 다음 명령을 변경하세요.
+
+```yaml
+run: python scripts/github_collect.py --server 149
 ```
+
+`index.html`은 선택한 서버의 기록을 `data/snapshots.json`에서 읽습니다. 서버 ID는 워크플로에 추가로 수집되도록 설정해야 기록이 생깁니다.
+
+## 기존 Render 구성
+
+`app.py`, `worker.py`, `render.yaml`은 기존 FastAPI/PostgreSQL 배포용으로 남겨두었습니다. GitHub Actions 기반 무료 구성에는 필요하지 않습니다.
