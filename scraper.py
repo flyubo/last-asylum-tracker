@@ -34,7 +34,13 @@ def scrape_server(server_id: int):
         header_cells = []
         for idx, row in enumerate(rows):
             cells = [clean(c.get_text(" ", strip=True)).lower() for c in row.find_all(["th", "td"], recursive=False)]
-            if "player" in " ".join(cells) and any("power" in h and "hero" in h and "total" in h for h in cells):
+            joined = " ".join(cells)
+            # The leaderboard labels this metric as "Hero Might" on some views
+            # and "Hero Total Power" on others. Do not require the word "total".
+            if "player" in joined and any(
+                ("hero" in h and ("might" in h or "power" in h))
+                for h in cells
+            ):
                 header_idx, header_cells = idx, cells
                 break
         if header_idx is None:
@@ -46,10 +52,13 @@ def scrape_server(server_id: int):
             return None
         player_i = find_col(["player"])
         tag_i = find_col(["tag", "alliance"])
-        # Only accept the requested Hero Total Power field. Do not silently
-        # fall back to a generic "Power" column, which measures a different stat.
+        # Accept the hero-specific metric labels used by the source. Never
+        # fall back to a generic account "Power" column.
         power_i = next((i for i, h in enumerate(header_cells)
-                        if "hero" in h and "power" in h and "total" in h), None)
+                        if "hero" in h and "might" in h), None)
+        if power_i is None:
+            power_i = next((i for i, h in enumerate(header_cells)
+                            if "hero" in h and "power" in h), None)
         rank_i = find_col(["#", "rank"])
         if player_i is None or power_i is None:
             continue
@@ -71,4 +80,17 @@ def scrape_server(server_id: int):
                 result.append({"rank": int(rank_match.group()), "player": player, "tag": tag, "power": power})
         if result:
             return result, url
-    raise ScrapeError("공개 HTML에서 'Hero Total Power(영웅 총 전투력)' 열을 찾지 못했습니다. 일반 Power 열로 대체하지 않았습니다. 사이트의 표기/HTML 구조를 확인해야 합니다.")
+    # Include the page title and candidate table headers to make future site
+    # markup changes diagnosable from the Actions log.
+    title = clean(soup.title.get_text(" ", strip=True)) if soup.title else "(제목 없음)"
+    headers = []
+    for table in soup.find_all("table"):
+        for row in table.find_all("tr")[:5]:
+            cells = [clean(c.get_text(" ", strip=True)) for c in row.find_all(["th", "td"])]
+            if cells:
+                headers.append(" | ".join(cells))
+    detail = " / ".join(headers[:8]) if headers else "(HTML에 table 요소 없음)"
+    raise ScrapeError(
+        f"영웅 전투력 열을 찾지 못했습니다. page_title={title!r}; "
+        f"table_headers={detail!r}. 일반 계정 Power 열로 대체하지 않았습니다."
+    )
