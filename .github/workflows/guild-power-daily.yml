@@ -1,0 +1,40 @@
+name: Daily guild power aggregation
+
+on:
+  schedule:
+    # 03:00 UTC = 12:00 KST
+    - cron: "0 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-guild-power-aggregation
+  cancel-in-progress: false
+
+jobs:
+  aggregate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Aggregate server 139 guild power
+        run: python scripts/guild_power_tracker.py
+      - name: Commit only guild power data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/guild_power_history.json data/guild_power_daily.csv data/guild_power_players_daily.csv
+          if ! git diff --cached --quiet; then
+            git commit -m "Update daily guild power history"
+            git push
+          else
+            echo "No guild power data changes to commit."
+          fi
