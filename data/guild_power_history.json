@@ -1,7 +1,7 @@
 {
   "version": 1,
   "server_id": 139,
-  "updated_at": "2026-10-15T03:23:58.791635+00:00",
+  "updated_at": "2026-10-16T03:23:52.349361+00:00",
   "scope_note": "집계는 공개 랭킹 페이지에서 수집된 플레이어만 포함합니다. 전체 길드 전투력으로 단정할 수 없습니다.",
   "snapshots": [
     {
@@ -1272,6 +1272,643 @@
               "rank": 89,
               "player": "雷帝☆フェイト-T",
               "power": 54594184
+            }
+          ],
+          "rank": 14
+        }
+      ]
+    },
+    {
+      "date": "2026-10-16",
+      "captured_at": "2026-10-16T03:23:52.349361+00:00",
+      "server_id": 139,
+      "source_url": "https://lastasylum.gg/en/leaderboard/servers/139/heroes",
+      "source_player_count": 100,
+      "tracked_total_power": 6569181311,
+      "guild_count": 14,
+      "guilds": [
+        {
+          "tag": "[HUG]",
+          "total_power": 2102054897,
+          "player_count": 30,
+          "share_percent": 31.9987,
+          "players": [
+            {
+              "rank": 1,
+              "player": "망⃢고Mango",
+              "power": 105860417
+            },
+            {
+              "rank": 3,
+              "player": "리빙아마도",
+              "power": 97841987
+            },
+            {
+              "rank": 4,
+              "player": "제⃢티ZETTY",
+              "power": 94198874
+            },
+            {
+              "rank": 8,
+              "player": "샤⃢갈",
+              "power": 89840916
+            },
+            {
+              "rank": 9,
+              "player": "치아뿌라",
+              "power": 87443505
+            },
+            {
+              "rank": 12,
+              "player": "소⃢풍Picnic",
+              "power": 80045158
+            },
+            {
+              "rank": 13,
+              "player": "AZZURE",
+              "power": 76919853
+            },
+            {
+              "rank": 17,
+              "player": "란란즈•RanRanz",
+              "power": 73923361
+            },
+            {
+              "rank": 18,
+              "player": "릴⃢리LILY",
+              "power": 73266803
+            },
+            {
+              "rank": 21,
+              "player": "미⃢밍MiMing",
+              "power": 71149016
+            },
+            {
+              "rank": 22,
+              "player": "isBack",
+              "power": 69900920
+            },
+            {
+              "rank": 23,
+              "player": "Giveit",
+              "power": 69821240
+            },
+            {
+              "rank": 24,
+              "player": "紫雲清夏-sumika-",
+              "power": 69416832
+            },
+            {
+              "rank": 29,
+              "player": "딸⃢바MILK",
+              "power": 68092911
+            },
+            {
+              "rank": 33,
+              "player": "AeroK",
+              "power": 67687786
+            },
+            {
+              "rank": 35,
+              "player": "türker",
+              "power": 65918725
+            },
+            {
+              "rank": 36,
+              "player": "파천V",
+              "power": 65890865
+            },
+            {
+              "rank": 46,
+              "player": "씨앗이싹트면",
+              "power": 63761270
+            },
+            {
+              "rank": 48,
+              "player": "체리맛사과",
+              "power": 63438810
+            },
+            {
+              "rank": 51,
+              "player": "생강양°ginger",
+              "power": 62630864
+            },
+            {
+              "rank": 52,
+              "player": "인스파⃤",
+              "power": 62477094
+            },
+            {
+              "rank": 58,
+              "player": "포⃢세-poseidon",
+              "power": 60945852
+            },
+            {
+              "rank": 61,
+              "player": "sas4",
+              "power": 59851326
+            },
+            {
+              "rank": 65,
+              "player": "부⃢기갈매기",
+              "power": 59140024
+            },
+            {
+              "rank": 67,
+              "player": "HIŊG",
+              "power": 59135728
+            },
+            {
+              "rank": 70,
+              "player": "로⃢탄",
+              "power": 58112769
+            },
+            {
+              "rank": 71,
+              "player": "杜の都-Miyako",
+              "power": 58069935
+            },
+            {
+              "rank": 79,
+              "player": "ㆍAKIRAㆍ",
+              "power": 56887297
+            },
+            {
+              "rank": 87,
+              "player": "나무아멘타불",
+              "power": 55204803
+            },
+            {
+              "rank": 88,
+              "player": "마메쏙드러●MAMESSOK",
+              "power": 55179956
+            }
+          ],
+          "rank": 1
+        },
+        {
+          "tag": "[TOK]",
+          "total_power": 1357285845,
+          "player_count": 20,
+          "share_percent": 20.6614,
+          "players": [
+            {
+              "rank": 2,
+              "player": "꼬질꼬질",
+              "power": 104062547
+            },
+            {
+              "rank": 6,
+              "player": "현생이중요",
+              "power": 90217102
+            },
+            {
+              "rank": 11,
+              "player": "쫌쪼미",
+              "power": 81484908
+            },
+            {
+              "rank": 15,
+              "player": "낭만DOCTOR",
+              "power": 74723008
+            },
+            {
+              "rank": 16,
+              "player": "식집사",
+              "power": 74143332
+            },
+            {
+              "rank": 25,
+              "player": "HANBANDO",
+              "power": 68947706
+            },
+            {
+              "rank": 26,
+              "player": "눈오는밤҉snow",
+              "power": 68916889
+            },
+            {
+              "rank": 30,
+              "player": "ThePASHA",
+              "power": 67934954
+            },
+            {
+              "rank": 40,
+              "player": "Saylok",
+              "power": 65497273
+            },
+            {
+              "rank": 41,
+              "player": "Caspius",
+              "power": 65099795
+            },
+            {
+              "rank": 50,
+              "player": "LadyMcDeath",
+              "power": 63065326
+            },
+            {
+              "rank": 55,
+              "player": "MissRill",
+              "power": 62304758
+            },
+            {
+              "rank": 56,
+              "player": "Azacel",
+              "power": 62035933
+            },
+            {
+              "rank": 57,
+              "player": "Hhaha🩵",
+              "power": 61432706
+            },
+            {
+              "rank": 59,
+              "player": "redhat",
+              "power": 60650371
+            },
+            {
+              "rank": 68,
+              "player": "Furkan61",
+              "power": 58993604
+            },
+            {
+              "rank": 69,
+              "player": "WeirdBeårdxX",
+              "power": 58865454
+            },
+            {
+              "rank": 72,
+              "player": "Hollyna",
+              "power": 57739796
+            },
+            {
+              "rank": 77,
+              "player": "Seaa",
+              "power": 56999135
+            },
+            {
+              "rank": 95,
+              "player": "꺼억",
+              "power": 54171248
+            }
+          ],
+          "rank": 2
+        },
+        {
+          "tag": "[JOKA]",
+          "total_power": 874920840,
+          "player_count": 13,
+          "share_percent": 13.3186,
+          "players": [
+            {
+              "rank": 5,
+              "player": "レインコート",
+              "power": 93763228
+            },
+            {
+              "rank": 7,
+              "player": "こいにゅ",
+              "power": 89890681
+            },
+            {
+              "rank": 14,
+              "player": "転生してもタカダだった件",
+              "power": 76445556
+            },
+            {
+              "rank": 31,
+              "player": "きょうへい",
+              "power": 67923227
+            },
+            {
+              "rank": 34,
+              "player": "はむはむ はむすたー",
+              "power": 67668485
+            },
+            {
+              "rank": 37,
+              "player": "つきみやび",
+              "power": 65799611
+            },
+            {
+              "rank": 38,
+              "player": "鋼太郎-KOTARO-",
+              "power": 65602741
+            },
+            {
+              "rank": 45,
+              "player": "エイボル",
+              "power": 64174202
+            },
+            {
+              "rank": 54,
+              "player": "マキノ",
+              "power": 62317808
+            },
+            {
+              "rank": 80,
+              "player": "Rease",
+              "power": 56606520
+            },
+            {
+              "rank": 83,
+              "player": "HARRIER01",
+              "power": 56137192
+            },
+            {
+              "rank": 89,
+              "player": "あき0811",
+              "power": 54760145
+            },
+            {
+              "rank": 98,
+              "player": "きたあかり",
+              "power": 53831444
+            }
+          ],
+          "rank": 3
+        },
+        {
+          "tag": "[NICE]",
+          "total_power": 527747089,
+          "player_count": 9,
+          "share_percent": 8.0337,
+          "players": [
+            {
+              "rank": 27,
+              "player": "KyTy3oB",
+              "power": 68807833
+            },
+            {
+              "rank": 44,
+              "player": "БоеваяЗая",
+              "power": 64241469
+            },
+            {
+              "rank": 49,
+              "player": "Trusishka",
+              "power": 63078294
+            },
+            {
+              "rank": 62,
+              "player": "АрЧИ",
+              "power": 59789662
+            },
+            {
+              "rank": 84,
+              "player": "PearlFlame",
+              "power": 55646483
+            },
+            {
+              "rank": 91,
+              "player": "AviRox",
+              "power": 54702766
+            },
+            {
+              "rank": 92,
+              "player": "Miklaus",
+              "power": 54691414
+            },
+            {
+              "rank": 97,
+              "player": "Пианист",
+              "power": 53928545
+            },
+            {
+              "rank": 100,
+              "player": "Паяц",
+              "power": 52860623
+            }
+          ],
+          "rank": 4
+        },
+        {
+          "tag": "[NAGI]",
+          "total_power": 389393104,
+          "player_count": 6,
+          "share_percent": 5.9276,
+          "players": [
+            {
+              "rank": 10,
+              "player": "転生したらウンコでした",
+              "power": 83845595
+            },
+            {
+              "rank": 19,
+              "player": "ラクター",
+              "power": 73080470
+            },
+            {
+              "rank": 42,
+              "player": "とらっぺ",
+              "power": 65020313
+            },
+            {
+              "rank": 76,
+              "player": "葉っぱ隊隊長",
+              "power": 57483484
+            },
+            {
+              "rank": 86,
+              "player": "モソモソ",
+              "power": 55241117
+            },
+            {
+              "rank": 90,
+              "player": "kozy",
+              "power": 54722125
+            }
+          ],
+          "rank": 5
+        },
+        {
+          "tag": "(무소속/태그 없음)",
+          "total_power": 376688288,
+          "player_count": 6,
+          "share_percent": 5.7342,
+          "players": [
+            {
+              "rank": 28,
+              "player": "테르다온",
+              "power": 68524257
+            },
+            {
+              "rank": 32,
+              "player": "확실이사살",
+              "power": 67700964
+            },
+            {
+              "rank": 43,
+              "player": "ダリヤ",
+              "power": 64323655
+            },
+            {
+              "rank": 60,
+              "player": "굿데이~",
+              "power": 60465728
+            },
+            {
+              "rank": 63,
+              "player": "빠이빠이빠이",
+              "power": 59210808
+            },
+            {
+              "rank": 81,
+              "player": "타묙치Mola⃤",
+              "power": 56462876
+            }
+          ],
+          "rank": 6
+        },
+        {
+          "tag": "[PxC]",
+          "total_power": 229908048,
+          "player_count": 4,
+          "share_percent": 3.4998,
+          "players": [
+            {
+              "rank": 47,
+              "player": "わたぬきさん・watanuki",
+              "power": 63727131
+            },
+            {
+              "rank": 73,
+              "player": "がぜる",
+              "power": 57674289
+            },
+            {
+              "rank": 94,
+              "player": "ツリメのいい小娘",
+              "power": 54341642
+            },
+            {
+              "rank": 96,
+              "player": "《ギンジ》",
+              "power": 54164986
+            }
+          ],
+          "rank": 7
+        },
+        {
+          "tag": "[RaS]",
+          "total_power": 167913458,
+          "player_count": 3,
+          "share_percent": 2.5561,
+          "players": [
+            {
+              "rank": 74,
+              "player": "°Пастырь°",
+              "power": 57664947
+            },
+            {
+              "rank": 78,
+              "player": "Мих82",
+              "power": 56917571
+            },
+            {
+              "rank": 99,
+              "player": "GREMLiN",
+              "power": 53330940
+            }
+          ],
+          "rank": 8
+        },
+        {
+          "tag": "[GTk]",
+          "total_power": 135389944,
+          "player_count": 2,
+          "share_percent": 2.061,
+          "players": [
+            {
+              "rank": 20,
+              "player": "もちくる",
+              "power": 73036135
+            },
+            {
+              "rank": 53,
+              "player": "猫シップ",
+              "power": 62353809
+            }
+          ],
+          "rank": 9
+        },
+        {
+          "tag": "[BST]",
+          "total_power": 123088306,
+          "player_count": 2,
+          "share_percent": 1.8737,
+          "players": [
+            {
+              "rank": 39,
+              "player": "konsta",
+              "power": 65553033
+            },
+            {
+              "rank": 75,
+              "player": "moniak06",
+              "power": 57535273
+            }
+          ],
+          "rank": 10
+        },
+        {
+          "tag": "[Z0V]",
+          "total_power": 115406585,
+          "player_count": 2,
+          "share_percent": 1.7568,
+          "players": [
+            {
+              "rank": 66,
+              "player": "Дубна",
+              "power": 59136783
+            },
+            {
+              "rank": 82,
+              "player": "ХанаЧеловечки",
+              "power": 56269802
+            }
+          ],
+          "rank": 11
+        },
+        {
+          "tag": "[REI]",
+          "total_power": 59170815,
+          "player_count": 1,
+          "share_percent": 0.9007,
+          "players": [
+            {
+              "rank": 64,
+              "player": "ReiB",
+              "power": 59170815
+            }
+          ],
+          "rank": 12
+        },
+        {
+          "tag": "[Row]",
+          "total_power": 55566518,
+          "player_count": 1,
+          "share_percent": 0.8459,
+          "players": [
+            {
+              "rank": 85,
+              "player": "くまえり",
+              "power": 55566518
+            }
+          ],
+          "rank": 13
+        },
+        {
+          "tag": "[CMR]",
+          "total_power": 54647574,
+          "player_count": 1,
+          "share_percent": 0.8319,
+          "players": [
+            {
+              "rank": 93,
+              "player": "雷帝☆フェイト-T",
+              "power": 54647574
             }
           ],
           "rank": 14
