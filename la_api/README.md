@@ -1,25 +1,42 @@
 # LA Tracker API Core
 
-This is an isolated API-platform module. The existing server-139 ranking tracker remains unchanged.
+This isolated module adds a local PCAP-session query path. The existing server-139 tracker and default branch are unchanged.
 
-## Included
-- `protocol.py`: JuFeng frame encoder/decoder, independent directional counters, checksum validation, gzip handling and message-name framing.
-- `catalog.py`: builds a searchable JSON index from recovered .proto schemas and the 2,050-name message list.
-- `index.html`: browser API explorer.
-- `api_catalog.json`: small, verified starter subset (4 core messages) so the explorer can load immediately.
-- `tests/test_protocol.py`: codec tests for chunked TCP input, gzip, counter wrap and checksum rejection.
-- `PCAP_VALIDATION.md`: redacted validation summary from the supplied PCAP.
+## Run locally (Windows)
 
-## Build the full catalogue
-Place the recovered analysis bundle in a local, untracked `analysis/` folder, then run:
+1. Download this branch as ZIP and extract it.
+2. Keep your PCAP on your PC; do not add it to Git.
+3. Open PowerShell in the extracted repository root.
+4. Run:
 
-```bash
-python -m la_api.catalog --proto-dir analysis/proto --messages analysis/api_messages_all.txt --output la_api/api_catalog.json
+```powershell
+python run_la_tracker.py
 ```
 
-The supplied analysis bundle generates **3,170 catalogue entries**, including **2,822 messages with matching protobuf schemas**. The starter JSON currently contains only four core messages; replace it with the generated full catalogue when the analysis bundle is staged locally.
+5. Open `http://127.0.0.1:8765`.
+6. Select your own `.pcap` file, import its session, and click reconnect.
+7. After reconnect succeeds, query server 139 rankings or enter a guild ID.
 
-## Authentication boundary
-The transport codec does not generate SDK signatures, account tokens, or device credentials. Session establishment should use a fresh, legitimate session from the user's own running game client or an officially supported authentication flow. The PCAP note confirms that a completed login and reconnect-token response were captured, but the old token may have expired.
+Python 3.10+ is recommended. No third-party Python packages are required.
 
-Never commit credentials, tokens, PCAPs, or device identifiers to Git. Keep any local session bridge and credential store outside the public web root and repository.
+## PCAP session flow
+
+- `pcap_session.py` reassembles the captured TCP stream and extracts the account name, account UID, server ID, endpoint and reconnect token from the matching login frames.
+- `socket_client.py` sends `LoginNoticeC2S`, then `LoginReconnectC2S`, completes the game login acknowledgement, and can send `QueryRankInfoC2S` / `QueryUnionPublicInfoC2S`.
+- `local_server.py` serves the console and API on **127.0.0.1 only**.
+- `local_console.html` provides PCAP import, reconnect, ranking and guild queries.
+
+The captured PCAP currently resolves to account server **137** and endpoint **35.71.144.148:9929**. The query form defaults to target server **139**; the account's login server and the ranking target server are separate values.
+
+## Important limitation
+
+The PCAP contains a server-issued reconnect token, but it may have expired or been invalidated. The app can attempt the legitimate reconnect using the user's own captured session. If the server rejects it or the endpoint has changed, the old PCAP alone cannot mint a fresh token. In that case a new normal login session is required; MuMu integration is deliberately deferred until this PCAP-only path has been tested.
+
+The app keeps the extracted token in process memory only. It is not written to disk, browser storage, logs, GitHub, or API responses. The PCAP is read in the browser and posted only to the local loopback service. Do not expose port 8765 to a LAN or public network.
+
+## Other API tooling
+
+- `protocol.py`: JuFeng frame encoder/decoder, directional counters, checksum and gzip.
+- `catalog.py`: full API catalogue builder from recovered .proto files and message names.
+- `index.html`: static API schema explorer.
+- `api_catalog.json`: four-message starter catalogue; generate the full catalogue with the recovered analysis bundle.
