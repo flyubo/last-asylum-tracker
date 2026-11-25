@@ -15,6 +15,7 @@ class CapturedSession:
     host: str
     port: int
     reconnect_body: bytes = b""
+    notice_body: bytes = b""
 
 def _varint(data: bytes, pos: int):
     value=shift=0
@@ -128,7 +129,7 @@ def extract_session(pcap_bytes: bytes) -> CapturedSession:
         return CapturedSession(
             account=account, account_uid=account_uid, token_key=token_key,
             server_id=int(nf.get(1,0)), host=flow[2], port=flow[3],
-            reconnect_body=reconnect.body,
+            reconnect_body=reconnect.body, notice_body=notice.body,
         )
 
     # Compatibility fallback for captures that contain only an initial login.
