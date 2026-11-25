@@ -93,15 +93,18 @@ class JuFengClient:
                 stage="waiting for LoginNoticeS2C and two AckCode frames after LoginNoticeC2S"
                 notice=_int_field(1,self.session.server_id)+_string_field(2,self.session.account)+_string_field(3,"ko")
                 self._send("LoginNoticeC2S",notice)
-                # The captured client waits for the notice and BOTH AckCode frames
-                # before sending the next login request. Returning on the first
-                # AckCode (or notice) races the server handshake and gets the
-                # connection closed.
-                self._wait_sequence(["LoginNoticeS2C","AckCode","AckCode"],15)
-                stage="waiting for LoginReconnectRespS2C after LoginReconnectC2S"
-                reconnect=_string_field(1,self.session.account)+_int_field(2,self.session.account_uid)+_string_field(3,self.session.token_key)
-                self._send("LoginReconnectC2S",reconnect)
-                response=self._wait_for({"LoginReconnectRespS2C","LoginRespS2C"},15)
+                # The supplied capture proves only the initial-login path:
+                # LoginNoticeC2S -> LoginNoticeS2C -> AckCode(LoginNoticeC2S)
+                # -> LoginReqC2S -> AckCode(LoginReqC2S) -> token.
+                # It does NOT contain a client LoginReconnectC2S request, so
+                # do not guess/replay an unverified reconnect handshake.
+                self._wait_sequence(["LoginNoticeS2C","AckCode"],15)
+                raise RuntimeError(
+                    "The PCAP contains an initial LoginReqC2S login, not a captured "
+                    "LoginReconnectC2S exchange. A second AckCode is sent only after "
+                    "LoginReqC2S. Capture a genuine reconnect from the official game "
+                    "client before implementing this reconnect path."
+                )
                 stage="parsing reconnect response"
                 outer=parse_protobuf_fields(response.body)
                 nested=next((v for n,w,v in outer if n==1 and w==2),response.body)
