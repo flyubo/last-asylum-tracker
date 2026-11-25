@@ -17,3 +17,11 @@ def test_captured_session_keeps_exact_notice_body():
     body = b"\x08\x8b\x01\x12\x03abc"
     session = CapturedSession("abc", 1, "hidden", 139, "127.0.0.1", 9929, b"reconnect", body)
     assert session.notice_body == body
+
+
+def test_captured_session_keeps_startup_frames():
+    from la_api.pcap_session import CapturedSession
+    frames = [("GetUnionHelpListC2S", b""), ("LoginSuccessC2S", b"\\x08\\x01")]
+    session = CapturedSession("abc", 1, "hidden", 139, "127.0.0.1", 9929,
+                              b"reconnect", b"notice", frames)
+    assert session.startup_frames == frames
