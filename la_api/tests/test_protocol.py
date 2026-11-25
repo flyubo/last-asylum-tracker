@@ -5,10 +5,10 @@ from la_api.protocol import FrameCounter, FrameDecoder, ProtocolError, encode_fr
 
 def test_small_payload_round_trip_and_chunking():
     tx, rx = FrameCounter(), FrameDecoder(FrameCounter())
-    wire = encode_frame("QueryRankInfoC2S", b"\\x08\\x8b\\x01", tx)
+    wire = encode_frame("QueryRankInfoC2S", b"\x08\x8b\x01", tx)
     assert rx.feed(wire[:5]) == []
     frame = rx.feed(wire[5:])[0]
-    assert (frame.name, frame.body, frame.counter) == ("QueryRankInfoC2S", b"\\x08\\x8b\\x01", 1)
+    assert (frame.name, frame.body, frame.counter) == ("QueryRankInfoC2S", b"\x08\x8b\x01", 1)
 
 
 def test_gzip_payload_round_trip():
