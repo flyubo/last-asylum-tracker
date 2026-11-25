@@ -72,6 +72,19 @@ class JuFengClient:
                 raise RuntimeError(f"Server rejected reconnect ({frame.name}); captured token may have expired")
             seen.append(frame.name)
         raise TimeoutError(f"Waiting for {sorted(accepted)} timed out; received {seen[-8:]}")
+    def _wait_sequence(self,expected:list[str],timeout=None):
+        """Wait for the captured login handshake sequence without advancing early."""
+        deadline=time.monotonic()+(timeout or self.timeout); seen=[]
+        for wanted in expected:
+            while time.monotonic()<deadline:
+                frame=self._next_frame(max(.2,deadline-time.monotonic()))
+                if frame.name==wanted:
+                    break
+                if frame.name in {"PermanentAccountS2C","LoginErrorS2C","LoginReconnectErrorS2C"}:
+                    raise RuntimeError(f"Server rejected login ({frame.name})")
+                seen.append(frame.name)
+            else:
+                raise TimeoutError(f"Waiting for login sequence {expected}; stopped before {wanted}; received {seen[-8:]}")
     def connect(self):
         with self.lock:
             stage="TCP connect"
@@ -80,7 +93,11 @@ class JuFengClient:
                 stage="waiting for LoginNoticeS2C after LoginNoticeC2S"
                 notice=_int_field(1,self.session.server_id)+_string_field(2,self.session.account)+_string_field(3,"ko")
                 self._send("LoginNoticeC2S",notice)
-                self._wait_for({"LoginNoticeS2C","AckCode"})
+                # The captured client waits for the notice and BOTH AckCode frames
+                # before sending the next login request. Returning on the first
+                # AckCode (or notice) races the server handshake and gets the
+                # connection closed.
+                self._wait_sequence(["LoginNoticeS2C","AckCode","AckCode"],15)
                 stage="waiting for LoginReconnectRespS2C after LoginReconnectC2S"
                 reconnect=_string_field(1,self.session.account)+_int_field(2,self.session.account_uid)+_string_field(3,self.session.token_key)
                 self._send("LoginReconnectC2S",reconnect)
