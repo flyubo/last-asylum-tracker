@@ -88,8 +88,8 @@ def test_connect_replays_handshake_in_captured_stages(monkeypatch):
     events = []
     monkeypatch.setattr(client, "_send", lambda name, body: events.append(("send", name)))
 
-    nested_login = b"\\x20\\x7b"  # protobuf field 4 (gameUid) = 123
-    response_body = b"\\x0a\\x02" + nested_login
+    nested_login = b"\x20\x7b"  # protobuf field 4 (gameUid) = 123
+    response_body = b"\x0a\x02" + nested_login
 
     def fake_wait_sequence(expected, timeout=None):
         events.append(("wait", tuple(expected)))
