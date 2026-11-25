@@ -49,3 +49,23 @@ def test_reconnect_token_refresh_refuses_ambiguous_fields():
     body = _string_field(1, token) + _string_field(2, token)
     with pytest.raises(ValueError, match="exactly one"):
         _replace_reconnect_token(body, "B" * 96)
+
+
+
+def test_startup_capture_keeps_all_frames_after_reconnect():
+    from types import SimpleNamespace
+    from la_api.pcap_session import _capture_startup_frames
+    frames = [
+        SimpleNamespace(name="LoginNoticeC2S", body=b"notice"),
+        SimpleNamespace(name="LoginReconnectC2S", body=b"reconnect"),
+        SimpleNamespace(name="GetUnionHelpListC2S", body=b""),
+        SimpleNamespace(name="LoginSuccessC2S", body=b"success"),
+        SimpleNamespace(name="GetPlayerMailTabC2S", body=b"mail"),
+        SimpleNamespace(name="EyGameUpdateClientInfoC2S", body=b"client"),
+    ]
+    assert _capture_startup_frames(frames) == [
+        ("GetUnionHelpListC2S", b""),
+        ("LoginSuccessC2S", b"success"),
+        ("GetPlayerMailTabC2S", b"mail"),
+        ("EyGameUpdateClientInfoC2S", b"client"),
+    ]
