@@ -18,6 +18,58 @@ class CapturedSession:
     notice_body: bytes = b""
     startup_frames: list[tuple[str, bytes]] | None = None
 
+def _encode_varint(value: int) -> bytes:
+    if value < 0:
+        raise ValueError("negative protobuf varint")
+    out = bytearray()
+    while value > 0x7F:
+        out.append((value & 0x7F) | 0x80)
+        value >>= 7
+    out.append(value)
+    return bytes(out)
+
+
+def _replace_reconnect_token(body: bytes, fresh_token: str) -> bytes:
+    """Replace the single printable token-sized field in a captured reconnect request.
+
+    A captured reconnect request has already consumed its old token. The server's
+    LoginReconnectTokenKeyS2C response supplies the next token. Do not guess a
+    protobuf field number: identify the unique printable byte field whose length
+    matches the server-issued token, and refuse ambiguous payloads.
+    """
+    token = fresh_token.encode("ascii", "strict")
+    fields = parse_protobuf_fields(body)
+    candidates = [
+        i for i, (_number, wire, value) in enumerate(fields)
+        if wire == 2 and isinstance(value, bytes)
+        and len(value) == len(token)
+        and all(0x21 <= byte <= 0x7E for byte in value)
+    ]
+    if len(candidates) != 1:
+        raise ValueError(
+            "Cannot safely refresh reconnect token: expected exactly one "
+            f"printable protobuf field of {len(token)} bytes, found {len(candidates)}"
+        )
+
+    replacement_index = candidates[0]
+    rebuilt = bytearray()
+    for i, (number, wire, value) in enumerate(fields):
+        rebuilt.extend(_encode_varint((number << 3) | wire))
+        if wire == 0:
+            rebuilt.extend(_encode_varint(value))
+        elif wire == 1:
+            rebuilt.extend(value)
+        elif wire == 2:
+            payload = token if i == replacement_index else value
+            rebuilt.extend(_encode_varint(len(payload)))
+            rebuilt.extend(payload)
+        elif wire == 5:
+            rebuilt.extend(value)
+        else:
+            raise ValueError(f"unsupported protobuf wire type {wire}")
+    return bytes(rebuilt)
+
+
 def _varint(data: bytes, pos: int):
     value=shift=0
     while pos<len(data) and shift<70:
@@ -127,6 +179,12 @@ def extract_session(pcap_bytes: bytes) -> CapturedSession:
                 try: token=token.decode("ascii")
                 except UnicodeDecodeError: token=""
             token_key=token if isinstance(token,str) else ""
+        if not token_key:
+            raise ValueError("Reconnect capture has no fresh server-issued reconnect token")
+        # The captured LoginReconnectC2S already consumed its previous token
+        # when the official client completed this reconnect. Refresh it with
+        # the new token returned by this same successful exchange.
+        refreshed_reconnect_body = _replace_reconnect_token(reconnect.body, token_key)
         # The official client pipelines two more handshake messages immediately
         # after reconnect, before the server's first response. Preserve them.
         startup = []
@@ -146,7 +204,7 @@ def extract_session(pcap_bytes: bytes) -> CapturedSession:
         return CapturedSession(
             account=account, account_uid=account_uid, token_key=token_key,
             server_id=int(nf.get(1,0)), host=flow[2], port=flow[3],
-            reconnect_body=reconnect.body, notice_body=notice.body,
+            reconnect_body=refreshed_reconnect_body, notice_body=notice.body,
             startup_frames=startup,
         )
 
