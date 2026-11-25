@@ -90,7 +90,7 @@ class JuFengClient:
             stage="TCP connect"
             try:
                 self.sock=socket.create_connection((self.host,self.port),timeout=self.timeout)
-                stage="waiting for LoginNoticeS2C after LoginNoticeC2S"
+                stage="waiting for LoginNoticeS2C and two AckCode frames after LoginNoticeC2S"
                 notice=_int_field(1,self.session.server_id)+_string_field(2,self.session.account)+_string_field(3,"ko")
                 self._send("LoginNoticeC2S",notice)
                 # The captured client waits for the notice and BOTH AckCode frames
