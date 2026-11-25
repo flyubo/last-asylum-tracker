@@ -53,11 +53,10 @@ A separate client TCP connection to `35.71.144.148:9929` contains a genuine reco
 The server's first response frames follow this client startup burst: `LoginNoticeS2C`, two `AckCode` frames, `LoginReconnectTokenKeyS2C`, and then the reconnect response messages. The client sends 18 captured client messages after LoginReconnectC2S and before the first server response. The earlier implementation retained only GetUnionHelpListC2S and LoginSuccessC2S, omitting the other 16 messages. The extractor now preserves the entire post-reconnect client burst in its original order.
 
 
-## Full reconnect startup burst (verified from frame report)
+## Additional client frames in reconnect stream
 
-The reconnect TCP stream contains 18 client frames after LoginReconnectC2S
-and before the first server frame (LoginNoticeS2C). These include the two
-previously preserved messages plus 16 further requests/updates. All 18 are
-now replayed in captured order. The frame report confirms that the client burst
-ends before the first server response; no packet bodies or credentials are
-stored in this note.
+The client-to-server TCP stream contains 18 frames after LoginReconnectC2S.
+The original frame report grouped frames by direction and recorded only the
+first packet timestamp for each direction; it therefore did not establish
+whether all 18 frames were sent before the server's first response. A separate
+packet-level timestamp analysis is required before changing the replay set.
