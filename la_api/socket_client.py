@@ -3,7 +3,7 @@ from __future__ import annotations
 import base64, socket, threading, time
 from dataclasses import dataclass
 from typing import Any
-from .pcap_session import CapturedSession, parse_protobuf_fields
+from .pcap_session import CapturedSession, parse_protobuf_fields, _replace_reconnect_token
 from .protocol import Frame, FrameCounter, FrameDecoder, encode_frame
 
 def _varint(value:int)->bytes:
@@ -117,7 +117,26 @@ class JuFengClient:
                 self._send("LoginReconnectC2S",self.session.reconnect_body)
 
                 stage="waiting for reconnect AckCode and LoginReconnectTokenKeyS2C"
-                self._wait_sequence(["AckCode", "LoginReconnectTokenKeyS2C"],15)
+                reconnect_ack = self._wait_sequence(["AckCode", "LoginReconnectTokenKeyS2C"],15)
+                # The server rotates the one-time reconnect token on every
+                # accepted reconnect. Keep the newly issued value in memory
+                # for the NEXT connection attempt.
+                token_fields = parse_protobuf_fields(reconnect_ack[1].body)
+                fresh_token = next(
+                    (value for number, wire, value in token_fields
+                     if number == 2 and wire == 2),
+                    b"",
+                )
+                if not isinstance(fresh_token, bytes) or not fresh_token:
+                    raise RuntimeError("Reconnect token response did not contain token field 2")
+                try:
+                    fresh_token_text = fresh_token.decode("ascii", "strict")
+                except UnicodeDecodeError as exc:
+                    raise RuntimeError("Reconnect token response field 2 is not ASCII") from exc
+                self.session.reconnect_body = _replace_reconnect_token(
+                    self.session.reconnect_body, fresh_token_text
+                )
+                self.session.token_key = fresh_token_text
 
                 stage="waiting for reconnect response frames"
                 reconnect_responses=self._wait_sequence([
