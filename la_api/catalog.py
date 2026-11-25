@@ -5,8 +5,8 @@ import json
 import re
 from pathlib import Path
 
-MESSAGE_RE = re.compile(r"\\bmessage\\s+([A-Za-z_][A-Za-z0-9_]*)\\s*\\{")
-FIELD_RE = re.compile(r"^\\s*(?:repeated\\s+|optional\\s+|map\\s*<[^>]+>\\s*)?([.A-Za-z_][.A-Za-z0-9_<> ,]*)\\s+([A-Za-z_][A-Za-z0-9_]*)\\s*=\\s*(\\d+)")
+MESSAGE_RE = re.compile(r"\bmessage\s+([A-Za-z_][A-Za-z0-9_]*)\s*\{")
+FIELD_RE = re.compile(r"^\s*(?:repeated\s+|optional\s+|map\s*<[^>]+>\s*)?([.A-Za-z_][.A-Za-z0-9_<> ,]*)\s+([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(\d+)")
 
 
 def extract_messages(proto_root: Path) -> dict[str, dict]:
