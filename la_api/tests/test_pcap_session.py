@@ -79,7 +79,7 @@ def test_connect_replays_handshake_in_captured_stages(monkeypatch):
 
     session = CapturedSession(
         "test-account", 1, "hidden", 139, "127.0.0.1", 9929,
-        b"reconnect", b"notice",
+        _string_field(3, "A" * 96), b"notice",
         [("GetUnionHelpListC2S", b""), ("LoginSuccessC2S", b"success")],
     )
     client = JuFengClient(session)
@@ -98,12 +98,22 @@ def test_connect_replays_handshake_in_captured_stages(monkeypatch):
                 Frame("EyGameLoginReconnectRespS2C", response_body, False, 1),
                 Frame("EyGameMiddleAgesReconnectRespS2C", b"", False, 2),
             ]
-        return [Frame(name, b"", False, i + 1) for i, name in enumerate(expected)]
+        return [
+            Frame(
+                name,
+                (_string_field(2, "B" * 96) if name == "LoginReconnectTokenKeyS2C" else b""),
+                False,
+                i + 1,
+            )
+            for i, name in enumerate(expected)
+        ]
 
     monkeypatch.setattr(client, "_wait_sequence", fake_wait_sequence)
     result = client.connect()
 
     assert result["game_uid"] == 123
+    assert parse_protobuf_fields(session.reconnect_body) == [(3, 2, b"B" * 96)]
+    assert session.token_key == "B" * 96
     assert events == [
         ("send", "LoginNoticeC2S"),
         ("wait", ("LoginNoticeS2C", "AckCode")),
