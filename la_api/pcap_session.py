@@ -141,6 +141,19 @@ def _reassemble(segments: Iterable[tuple[int,bytes]]):
         out.extend(payload); expected=seq+len(payload)
     return bytes(out)
 
+def _capture_startup_frames(frames):
+    """Return every client frame after LoginReconnectC2S in captured order."""
+    startup = []
+    seen_reconnect = False
+    for frame in frames:
+        if frame.name == "LoginReconnectC2S":
+            seen_reconnect = True
+            continue
+        if seen_reconnect:
+            startup.append((frame.name, frame.body))
+    return startup
+
+
 def extract_session(pcap_bytes: bytes) -> CapturedSession:
     """Prefer a real captured reconnect exchange; keep its request body in memory only."""
     flows={}
@@ -185,19 +198,11 @@ def extract_session(pcap_bytes: bytes) -> CapturedSession:
         # when the official client completed this reconnect. Refresh it with
         # the new token returned by this same successful exchange.
         refreshed_reconnect_body = _replace_reconnect_token(reconnect.body, token_key)
-        # The official client pipelines two more handshake messages immediately
-        # after reconnect, before the server's first response. Preserve them.
-        startup = []
-        seen_reconnect = False
-        for frame in frames:
-            if frame.name == "LoginReconnectC2S":
-                seen_reconnect = True
-                continue
-            if seen_reconnect and frame.name in {"GetUnionHelpListC2S", "LoginSuccessC2S"}:
-                if frame.name not in {name for name, _ in startup}:
-                    startup.append((frame.name, frame.body))
-                if {"GetUnionHelpListC2S", "LoginSuccessC2S"}.issubset({name for name, _ in startup}):
-                    break
+        # Preserve the ENTIRE client-side startup burst after reconnect.
+        # The November 25 PCAP has 18 messages here before the server's first
+        # response; replaying only GetUnionHelpListC2S and LoginSuccessC2S
+        # omits 16 messages and does not reproduce the captured exchange.
+        startup = _capture_startup_frames(frames)
         required = {"GetUnionHelpListC2S", "LoginSuccessC2S"}
         if not required.issubset({name for name, _ in startup}):
             raise ValueError("Reconnect capture is missing the official client's post-reconnect handshake frames")
