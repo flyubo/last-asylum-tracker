@@ -123,3 +123,27 @@ def test_connect_replays_handshake_in_captured_stages(monkeypatch):
         ("send", "GetUnionHelpListC2S"),
         ("send", "LoginSuccessC2S"),
     ]
+
+
+def test_wait_sequence_reports_last_ack_before_server_close(monkeypatch):
+    from la_api.pcap_session import CapturedSession
+    from la_api.protocol import Frame
+    from la_api.socket_client import JuFengClient
+
+    session = CapturedSession("abc", 1, "hidden", 139, "127.0.0.1", 9929)
+    client = JuFengClient(session)
+    received = iter([
+        Frame("AckCode", b"", False, 1),
+        ConnectionError("Server closed TCP connection"),
+    ])
+
+    def next_frame(timeout=None):
+        item = next(received)
+        if isinstance(item, Exception):
+            raise item
+        return item
+
+    monkeypatch.setattr(client, "_next_frame", next_frame)
+    import pytest
+    with pytest.raises(ConnectionError, match=r"waiting for LoginReconnectTokenKeyS2C; matched=\['AckCode'\]"):
+        client._wait_sequence(["AckCode", "LoginReconnectTokenKeyS2C"], timeout=1)
