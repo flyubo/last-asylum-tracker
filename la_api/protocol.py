@@ -10,7 +10,7 @@ import struct
 from dataclasses import dataclass
 from typing import Optional
 
-MAGIC = b"\\x70\\xA3"
+MAGIC = b"\x70\xA3"
 COUNTER_WRAP = 0x70A3
 GZIP_THRESHOLD = 4096
 
