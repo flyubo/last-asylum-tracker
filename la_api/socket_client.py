@@ -74,21 +74,29 @@ class JuFengClient:
         raise TimeoutError(f"Waiting for {sorted(accepted)} timed out; received {seen[-8:]}")
     def connect(self):
         with self.lock:
-            self.sock=socket.create_connection((self.host,self.port),timeout=self.timeout)
-            notice=_int_field(1,self.session.server_id)+_string_field(2,self.session.account)+_string_field(3,"ko")
-            self._send("LoginNoticeC2S",notice)
-            self._wait_for({"LoginNoticeS2C","AckCode"})
-            reconnect=_string_field(1,self.session.account)+_int_field(2,self.session.account_uid)+_string_field(3,self.session.token_key)
-            self._send("LoginReconnectC2S",reconnect)
-            response=self._wait_for({"LoginReconnectRespS2C","LoginRespS2C"},15)
-            outer=parse_protobuf_fields(response.body)
-            nested=next((v for n,w,v in outer if n==1 and w==2),response.body)
-            fields=parse_protobuf_fields(nested); values={n:v for n,w,v in fields if w==0}
-            game_uid=int(values.get(4,0)); server_id=int(values.get(3,self.session.server_id)); union_id=int(values.get(34,0))
-            if not game_uid:raise RuntimeError("Reconnect response did not contain gameUid")
-            self.login_info={"game_uid":game_uid,"server_id":server_id,"union_id":union_id}
-            self._send("LoginSuccessC2S",_int_field(1,game_uid))
-            return dict(self.login_info)
+            stage="TCP connect"
+            try:
+                self.sock=socket.create_connection((self.host,self.port),timeout=self.timeout)
+                stage="waiting for LoginNoticeS2C after LoginNoticeC2S"
+                notice=_int_field(1,self.session.server_id)+_string_field(2,self.session.account)+_string_field(3,"ko")
+                self._send("LoginNoticeC2S",notice)
+                self._wait_for({"LoginNoticeS2C","AckCode"})
+                stage="waiting for LoginReconnectRespS2C after LoginReconnectC2S"
+                reconnect=_string_field(1,self.session.account)+_int_field(2,self.session.account_uid)+_string_field(3,self.session.token_key)
+                self._send("LoginReconnectC2S",reconnect)
+                response=self._wait_for({"LoginReconnectRespS2C","LoginRespS2C"},15)
+                stage="parsing reconnect response"
+                outer=parse_protobuf_fields(response.body)
+                nested=next((v for n,w,v in outer if n==1 and w==2),response.body)
+                fields=parse_protobuf_fields(nested); values={n:v for n,w,v in fields if w==0}
+                game_uid=int(values.get(4,0)); server_id=int(values.get(3,self.session.server_id)); union_id=int(values.get(34,0))
+                if not game_uid:raise RuntimeError("Reconnect response did not contain gameUid")
+                self.login_info={"game_uid":game_uid,"server_id":server_id,"union_id":union_id}
+                stage="sending LoginSuccessC2S"
+                self._send("LoginSuccessC2S",_int_field(1,game_uid))
+                return dict(self.login_info)
+            except Exception as exc:
+                raise RuntimeError(f"{stage}: {type(exc).__name__}: {exc}") from exc
     def query_rank(self,server_id:int,rank_type:int=1,rank_id:int=0):
         with self.lock:
             if self.sock is None or not self.login_info:raise RuntimeError("Connect first")
