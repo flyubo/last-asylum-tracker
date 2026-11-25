@@ -32,6 +32,15 @@ The same authenticated TCP stream contains `QueryRankInfoC2S` and `QueryUnionPub
 Build a local-only session bridge that obtains a fresh session through the user's running, authenticated game client, keeps credentials outside Git, and hands a short-lived session to the API worker. Do not print or commit token/signature values. The captured reconnect token may be expired, so it should be treated as evidence of the protocol flow, not as a reusable current credential.
 
 
+## Reconnect token lifecycle
+
+The captured reconnect request is not reusable as-is: the official client successfully
+sent it during this capture, and the server then issued a new `LoginReconnectTokenKeyS2C`.
+The local extractor now replaces the unique printable token-sized field in the captured
+`LoginReconnectC2S` protobuf with that newly issued token. It refuses the capture
+if the token field cannot be identified unambiguously. This avoids replaying the token
+that the official client already consumed.
+
 ## Reconnect TCP stream (November 25 capture)
 
 A separate client TCP connection to `35.71.144.148:9929` contains a genuine reconnect exchange. The observed client startup order is:
