@@ -16,6 +16,7 @@ class CapturedSession:
     port: int
     reconnect_body: bytes = b""
     notice_body: bytes = b""
+    startup_frames: list[tuple[str, bytes]] | None = None
 
 def _varint(data: bytes, pos: int):
     value=shift=0
@@ -126,10 +127,24 @@ def extract_session(pcap_bytes: bytes) -> CapturedSession:
                 try: token=token.decode("ascii")
                 except UnicodeDecodeError: token=""
             token_key=token if isinstance(token,str) else ""
+        # The official client pipelines two more handshake messages immediately
+        # after reconnect, before the server's first response. Preserve them.
+        startup = []
+        seen_reconnect = False
+        for frame in frames:
+            if frame.name == "LoginReconnectC2S":
+                seen_reconnect = True
+                continue
+            if seen_reconnect and frame.name in {"GetUnionHelpListC2S", "LoginSuccessC2S"}:
+                startup.append((frame.name, frame.body))
+        required = {"GetUnionHelpListC2S", "LoginSuccessC2S"}
+        if not required.issubset({name for name, _ in startup}):
+            raise ValueError("Reconnect capture is missing the official client's post-reconnect handshake frames")
         return CapturedSession(
             account=account, account_uid=account_uid, token_key=token_key,
             server_id=int(nf.get(1,0)), host=flow[2], port=flow[3],
             reconnect_body=reconnect.body, notice_body=notice.body,
+            startup_frames=startup,
         )
 
     # Compatibility fallback for captures that contain only an initial login.
