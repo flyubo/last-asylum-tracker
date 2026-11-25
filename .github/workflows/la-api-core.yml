@@ -1,0 +1,20 @@
+name: LA API core tests
+on:
+  push:
+    paths:
+      - "la_api/**"
+      - ".github/workflows/la-api-core.yml"
+  pull_request:
+    paths:
+      - "la_api/**"
+      - ".github/workflows/la-api-core.yml"
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install pytest
+      - run: python -m pytest -q la_api/tests
