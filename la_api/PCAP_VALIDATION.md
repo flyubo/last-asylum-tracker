@@ -30,3 +30,15 @@ The same authenticated TCP stream contains `QueryRankInfoC2S` and `QueryUnionPub
 ## Next engineering step
 
 Build a local-only session bridge that obtains a fresh session through the user's running, authenticated game client, keeps credentials outside Git, and hands a short-lived session to the API worker. Do not print or commit token/signature values. The captured reconnect token may be expired, so it should be treated as evidence of the protocol flow, not as a reusable current credential.
+
+
+## Reconnect TCP stream (November 25 capture)
+
+A separate client TCP connection to `35.71.144.148:9929` contains a genuine reconnect exchange. The observed client startup order is:
+
+1. `LoginNoticeC2S`
+2. `LoginReconnectC2S`
+3. `GetUnionHelpListC2S`
+4. `LoginSuccessC2S`
+
+The server's first response frames follow this client startup burst: `LoginNoticeS2C`, two `AckCode` frames, `LoginReconnectTokenKeyS2C`, and then the reconnect response messages. The local client now preserves and replays the captured startup bodies in this order instead of waiting for acknowledgements immediately after sending only the first two frames.
