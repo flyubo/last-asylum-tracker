@@ -69,3 +69,47 @@ def test_startup_capture_keeps_all_frames_after_reconnect():
         ("GetPlayerMailTabC2S", b"mail"),
         ("EyGameUpdateClientInfoC2S", b"client"),
     ]
+
+
+
+def test_connect_replays_handshake_in_captured_stages(monkeypatch):
+    from la_api.pcap_session import CapturedSession
+    from la_api.protocol import Frame
+    from la_api.socket_client import JuFengClient
+
+    session = CapturedSession(
+        "test-account", 1, "hidden", 139, "127.0.0.1", 9929,
+        b"reconnect", b"notice",
+        [("GetUnionHelpListC2S", b""), ("LoginSuccessC2S", b"success")],
+    )
+    client = JuFengClient(session)
+    monkeypatch.setattr("la_api.socket_client.socket.create_connection", lambda *a, **k: object())
+
+    events = []
+    monkeypatch.setattr(client, "_send", lambda name, body: events.append(("send", name)))
+
+    nested_login = b"\\x20\\x7b"  # protobuf field 4 (gameUid) = 123
+    response_body = b"\\x0a\\x02" + nested_login
+
+    def fake_wait_sequence(expected, timeout=None):
+        events.append(("wait", tuple(expected)))
+        if expected == ["EyGameLoginReconnectRespS2C", "EyGameMiddleAgesReconnectRespS2C"]:
+            return [
+                Frame("EyGameLoginReconnectRespS2C", response_body, False, 1),
+                Frame("EyGameMiddleAgesReconnectRespS2C", b"", False, 2),
+            ]
+        return [Frame(name, b"", False, i + 1) for i, name in enumerate(expected)]
+
+    monkeypatch.setattr(client, "_wait_sequence", fake_wait_sequence)
+    result = client.connect()
+
+    assert result["game_uid"] == 123
+    assert events == [
+        ("send", "LoginNoticeC2S"),
+        ("wait", ("LoginNoticeS2C", "AckCode")),
+        ("send", "LoginReconnectC2S"),
+        ("wait", ("AckCode", "LoginReconnectTokenKeyS2C")),
+        ("wait", ("EyGameLoginReconnectRespS2C", "EyGameMiddleAgesReconnectRespS2C")),
+        ("send", "GetUnionHelpListC2S"),
+        ("send", "LoginSuccessC2S"),
+    ]
