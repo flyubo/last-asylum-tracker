@@ -10,3 +10,10 @@ def test_login_notice_protobuf_fields_round_trip():
 def test_reconnect_payload_field_numbers():
     body = _string_field(1, "test-account") + _int_field(2, 123456) + _string_field(3, "test-token")
     assert parse_protobuf_fields(body) == [(1, 2, b"test-account"), (2, 0, 123456), (3, 2, b"test-token")]
+
+
+def test_captured_session_keeps_exact_notice_body():
+    from la_api.pcap_session import CapturedSession
+    body = b"\x08\x8b\x01\x12\x03abc"
+    session = CapturedSession("abc", 1, "hidden", 139, "127.0.0.1", 9929, b"reconnect", body)
+    assert session.notice_body == body
