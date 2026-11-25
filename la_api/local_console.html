@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LA Tracker · Live Query</title>
+<style>
+:root{color-scheme:dark;font-family:Inter,system-ui,"Segoe UI",sans-serif;background:#0b1220;color:#e8eef8}*{box-sizing:border-box}body{margin:0}header{padding:22px 26px;background:#121d30;border-bottom:1px solid #2a3850}h1{font-size:24px;margin:0 0 5px}p,.muted{color:#9eafc7;margin:0;line-height:1.55}main{max-width:1100px;margin:auto;padding:22px}.panel{background:#121d30;border:1px solid #293851;border-radius:12px;padding:16px;margin-bottom:14px}.panel h2{font-size:16px;margin:0 0 10px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;align-items:end}label{display:flex;flex-direction:column;gap:6px;color:#9eafc7;font-size:12px}input{background:#142239;border:1px solid #354660;color:#edf4ff;border-radius:9px;padding:11px;font:inherit;min-width:0;width:100%}button{border:1px solid #4a6487;background:#213958;color:#fff;border-radius:9px;padding:11px 14px;font:inherit;cursor:pointer}button:hover{background:#2b4b73}button:disabled{opacity:.4;cursor:not-allowed}.status{padding:10px 0;color:#b8d1ef;font-size:13px}.out{background:#09111e;border:1px solid #2a3850;border-radius:9px;padding:12px;max-height:420px;overflow:auto;white-space:pre-wrap;word-break:break-word;font-size:12px;color:#d4e2f4}.warn{font-size:12px;color:#d8b987;margin-top:10px}a{color:#a8cfff}@media(max-width:700px){main{padding:12px}}
+</style></head><body>
+<header><h1>LA Tracker · Live Query</h1><p>PCAP 재접속 세션을 이용한 실시간 게임 데이터 조회</p></header>
+<main>
+<section class="panel"><h2>1. PCAP에서 본인 세션 가져오기</h2><p>기존 PCAP 파일을 선택하면 로그인 계정과 재접속 토큰을 메모리에서 읽습니다. PCAP와 토큰은 GitHub나 외부 서버로 업로드되지 않습니다.</p>
+<div class="grid" style="margin-top:12px"><label>PCAP 파일<input id="pcap" type="file" accept=".pcap,application/vnd.tcpdump.pcap"></label><button onclick="importPcap()">PCAP 세션 불러오기</button></div>
+<div class="status" id="status">로컬 세션 상태 확인 중…</div><div class="grid"><label>서버 IP 변경 (선택)<input id="host" placeholder="기본값: PCAP에 기록된 서버 IP"></label><button id="connect" onclick="connect()" disabled>게임 서버 재접속</button><button onclick="disconnect()">연결 종료</button></div>
+<div class="warn">주의: 캡처된 재접속 토큰은 만료되었을 수 있습니다. 만료된 경우 이 PCAP만으로 새 토큰을 발급할 수는 없습니다. 이때 MuMu 연결 없이 가능한 범위는 여기까지이며, 새 정상 로그인 세션이 필요합니다.</div></section>
+<section class="panel"><h2>2. 서버 랭킹 조회</h2><div class="grid">
+<label>조회 서버 ID<input id="serverId" type="number" value="139"></label><label>랭킹 type<input id="rankType" type="number" value="1"></label><label>랭킹 ID<input id="rankId" type="number" value="0"></label><button onclick="rank()">랭킹 조회</button></div></section>
+<section class="panel"><h2>3. 길드 정보 조회</h2><div class="grid"><label>길드 ID<input id="unionId" type="number" placeholder="조회할 길드 ID"></label><button onclick="union()">길드 정보 조회</button></div></section>
+<section class="panel"><h2>응답 데이터</h2><pre class="out" id="output">아직 조회 결과가 없습니다.</pre></section>
+<p class="muted">이 도구는 127.0.0.1에서만 실행됩니다. 로그인 토큰을 브라우저 저장소나 Git 저장소에 기록하지 않습니다. <a href="/api/catalog" target="_blank">초기 API 카탈로그 JSON</a></p>
+</main>
+<script>
+const $=id=>document.getElementById(id);function show(x){$("output").textContent=typeof x==="string"?x:JSON.stringify(x,null,2)}
+async function post(path,data={}){const r=await fetch(path,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)});const j=await r.json();if(!r.ok||j.ok===false)throw Error(j.error||("HTTP "+r.status));return j}
+async function importPcap(){try{const f=$("pcap").files[0];if(!f)throw Error("PCAP 파일을 선택해 주세요.");$("status").textContent="PCAP 분석 중…";const b=new Uint8Array(await f.arrayBuffer());let s="";for(let i=0;i<b.length;i+=32768)s+=String.fromCharCode(...b.subarray(i,i+32768));const r=await post("/api/session/import",{pcap_base64:btoa(s)});$("status").textContent="세션 추출 완료 · 계정 "+r.account+" · 캡처 서버 "+r.captured_server+" · "+r.endpoint+" · 토큰 길이 "+r.token_length;$("connect").disabled=false;show(r)}catch(e){$("status").textContent="PCAP 오류: "+e.message;show(e.message)}}
+async function connect(){try{$("status").textContent="재접속 요청 중…";const r=await post("/api/session/connect",{host:$("host").value.trim()||null});$("status").textContent="재접속 성공 · 게임 UID "+r.login.game_uid+" · 계정 서버 "+r.login.server_id+" · 길드 "+r.login.union_id;show(r)}catch(e){$("status").textContent="재접속 실패: "+e.message;show(e.message)}}
+async function disconnect(){try{const r=await post("/api/session/disconnect");$("status").textContent="연결 종료";show(r)}catch(e){show(e.message)}}
+async function rank(){try{$("status").textContent="랭킹 요청 중…";const r=await post("/api/query/rank",{server_id:Number($("serverId").value),type:Number($("rankType").value),id:Number($("rankId").value)});$("status").textContent="랭킹 응답 수신 · "+r.message+" · "+r.raw_length+" bytes";show(r)}catch(e){$("status").textContent="랭킹 조회 실패: "+e.message;show(e.message)}}
+async function union(){try{const id=Number($("unionId").value);if(!id)throw Error("길드 ID를 입력해 주세요.");$("status").textContent="길드 요청 중…";const r=await post("/api/query/union",{union_id:id});$("status").textContent="길드 응답 수신 · "+r.message+" · "+r.raw_length+" bytes";show(r)}catch(e){$("status").textContent="길드 조회 실패: "+e.message;show(e.message)}}
+fetch("/api/status").then(r=>r.json()).then(s=>{if(s.pcap_imported){$("status").textContent="세션 로드됨 · "+s.account+" · "+s.endpoint;$("connect").disabled=false}else $("status").textContent="PCAP 파일을 선택해 세션을 가져오세요."}).catch(()=>{$("status").textContent="로컬 서버가 실행되지 않았습니다."});
+</script></body></html>
