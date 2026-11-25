@@ -101,7 +101,7 @@ def extract_session(pcap_bytes: bytes) -> CapturedSession:
         except (ValueError,ProtocolError):
             continue
 
-    # The November 21 capture contains a genuine LoginReconnectC2S on a
+    # The November 25 capture contains a genuine LoginReconnectC2S on a
     # second TCP connection. Use that exact client-generated protobuf body.
     for flow,frames in decoded.items():
         reconnect=next((f for f in frames if f.name=="LoginReconnectC2S"),None)
