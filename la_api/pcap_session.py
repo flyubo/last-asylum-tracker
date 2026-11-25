@@ -136,7 +136,10 @@ def extract_session(pcap_bytes: bytes) -> CapturedSession:
                 seen_reconnect = True
                 continue
             if seen_reconnect and frame.name in {"GetUnionHelpListC2S", "LoginSuccessC2S"}:
-                startup.append((frame.name, frame.body))
+                if frame.name not in {name for name, _ in startup}:
+                    startup.append((frame.name, frame.body))
+                if {"GetUnionHelpListC2S", "LoginSuccessC2S"}.issubset({name for name, _ in startup}):
+                    break
         required = {"GetUnionHelpListC2S", "LoginSuccessC2S"}
         if not required.issubset({name for name, _ in startup}):
             raise ValueError("Reconnect capture is missing the official client's post-reconnect handshake frames")
