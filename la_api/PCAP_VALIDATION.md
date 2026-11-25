@@ -43,20 +43,29 @@ that the official client already consumed.
 
 ## Reconnect TCP stream (November 25 capture)
 
-A separate client TCP connection to `35.71.144.148:9929` contains a genuine reconnect exchange. The observed client startup order is:
+Packet-level timestamps (UTC) establish a staged handshake:
 
-1. `LoginNoticeC2S`
-2. `LoginReconnectC2S`
-3. `GetUnionHelpListC2S`
-4. `LoginSuccessC2S`
+1. 12:15:45.991680 — client sends LoginNoticeC2S
+2. 12:15:46.214423 — server sends LoginNoticeS2C and the first AckCode
+3. 12:15:46.273017 — client sends LoginReconnectC2S
+4. 12:15:46.443541 — server sends the second AckCode and LoginReconnectTokenKeyS2C
+5. 12:15:46.495061 — server sends EyGameLoginReconnectRespS2C
+6. 12:15:46.498648 — server sends EyGameMiddleAgesReconnectRespS2C
+7. 12:15:46.524336 — client begins its post-reconnect startup requests with GetUnionHelpListC2S
+8. 12:15:46.565583 — client sends LoginSuccessC2S
 
-The server's first response frames follow this client startup burst: `LoginNoticeS2C`, two `AckCode` frames, `LoginReconnectTokenKeyS2C`, and then the reconnect response messages. The client sends 18 captured client messages after LoginReconnectC2S and before the first server response. The earlier implementation retained only GetUnionHelpListC2S and LoginSuccessC2S, omitting the other 16 messages. The extractor now preserves the entire post-reconnect client burst in its original order.
+The remaining captured client startup requests follow through 12:15:46.971025.
+This proves that LoginReconnectC2S must not be sent until after the initial
+LoginNoticeS2C/AckCode pair, and that the post-reconnect client burst must not
+be sent until the reconnect response frames have arrived.
 
+The local socket client now follows these stages explicitly:
+- send LoginNoticeC2S; wait for LoginNoticeS2C and the first AckCode
+- send LoginReconnectC2S; wait for the second AckCode and fresh token response
+- wait for both reconnect response frames
+- send all 18 captured post-reconnect client frames in their original order
 
-## Additional client frames in reconnect stream
+The previous implementation sent LoginReconnectC2S before receiving the
+initial acknowledgement and sent startup requests before the reconnect response.
+Both ordering errors are corrected.
 
-The client-to-server TCP stream contains 18 frames after LoginReconnectC2S.
-The original frame report grouped frames by direction and recorded only the
-first packet timestamp for each direction; it therefore did not establish
-whether all 18 frames were sent before the server's first response. A separate
-packet-level timestamp analysis is required before changing the replay set.
