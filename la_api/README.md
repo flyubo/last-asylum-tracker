@@ -22,7 +22,7 @@ Python 3.10+ is recommended. No third-party Python packages are required.
 ## PCAP session flow
 
 - `pcap_session.py` reassembles the captured TCP stream and extracts the account name, account UID, server ID, endpoint and reconnect token from the matching login frames.
-- `socket_client.py` sends `LoginNoticeC2S`, then `LoginReconnectC2S`, completes the game login acknowledgement, and can send `QueryRankInfoC2S` / `QueryUnionPublicInfoC2S`.
+- `socket_client.py` replays the captured `LoginNoticeC2S`, `LoginReconnectC2S`, `GetUnionHelpListC2S`, and `LoginSuccessC2S` startup sequence in the observed order, then can send `QueryRankInfoC2S` / `QueryUnionPublicInfoC2S`.
 - `local_server.py` serves the console and API on **127.0.0.1 only**.
 - `local_console.html` provides PCAP import, reconnect, ranking and guild queries.
 
