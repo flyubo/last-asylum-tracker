@@ -77,7 +77,14 @@ class JuFengClient:
         deadline=time.monotonic()+(timeout or self.timeout); seen=[]; matched=[]
         for wanted in expected:
             while time.monotonic()<deadline:
-                frame=self._next_frame(max(.2,deadline-time.monotonic()))
+                try:
+                    frame=self._next_frame(max(.2,deadline-time.monotonic()))
+                except ConnectionError as exc:
+                    received=[frame.name for frame in matched]
+                    raise ConnectionError(
+                        f"Server closed TCP connection while waiting for {wanted}; "
+                        f"matched={received}; other_frames={seen[-8:]}"
+                    ) from exc
                 if frame.name==wanted:
                     matched.append(frame)
                     break
