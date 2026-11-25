@@ -14,6 +14,7 @@ class CapturedSession:
     server_id: int
     host: str
     port: int
+    reconnect_body: bytes = b""
 
 def _varint(data: bytes, pos: int):
     value=shift=0
@@ -87,6 +88,7 @@ def _reassemble(segments: Iterable[tuple[int,bytes]]):
     return bytes(out)
 
 def extract_session(pcap_bytes: bytes) -> CapturedSession:
+    """Prefer a real captured reconnect exchange; keep its request body in memory only."""
     flows={}
     for src,sp,dst,dp,seq,payload in _read_pcap(pcap_bytes):
         flows.setdefault((src,sp,dst,dp),[]).append((seq,payload))
@@ -95,7 +97,41 @@ def extract_session(pcap_bytes: bytes) -> CapturedSession:
         try:
             frames=FrameDecoder().feed(_reassemble(segs))
             if frames: decoded[flow]=frames
-        except (ValueError,ProtocolError): pass
+        except (ValueError,ProtocolError):
+            continue
+
+    # The November 21 capture contains a genuine LoginReconnectC2S on a
+    # second TCP connection. Use that exact client-generated protobuf body.
+    for flow,frames in decoded.items():
+        reconnect=next((f for f in frames if f.name=="LoginReconnectC2S"),None)
+        notice=next((f for f in frames if f.name=="LoginNoticeC2S"),None)
+        if reconnect is None or notice is None:
+            continue
+        nf={n:v for n,w,v in parse_protobuf_fields(notice.body)}
+        account=nf.get(2,b"")
+        if isinstance(account,bytes):
+            account=account.decode("utf-8","strict")
+        if not account:
+            continue
+        reverse=(flow[2],flow[3],flow[0],flow[1])
+        token_frame=next((f for f in decoded.get(reverse,[]) if f.name=="LoginReconnectTokenKeyS2C"),None)
+        account_uid=0
+        token_key=""
+        if token_frame:
+            tf={n:v for n,w,v in parse_protobuf_fields(token_frame.body)}
+            account_uid=int(tf.get(1,0)) if isinstance(tf.get(1,0),int) else 0
+            token=tf.get(2,b"")
+            if isinstance(token,bytes):
+                try: token=token.decode("ascii")
+                except UnicodeDecodeError: token=""
+            token_key=token if isinstance(token,str) else ""
+        return CapturedSession(
+            account=account, account_uid=account_uid, token_key=token_key,
+            server_id=int(nf.get(1,0)), host=flow[2], port=flow[3],
+            reconnect_body=reconnect.body,
+        )
+
+    # Compatibility fallback for captures that contain only an initial login.
     for flow,frames in decoded.items():
         notice=next((f for f in frames if f.name=="LoginNoticeC2S"),None)
         if not notice: continue
@@ -111,7 +147,7 @@ def extract_session(pcap_bytes: bytes) -> CapturedSession:
         if isinstance(token,bytes): token=token.decode("ascii","strict")
         if tf.get(1) and token:
             return CapturedSession(account,int(tf[1]),token,int(fields.get(1,0)),flow[2],flow[3])
-    raise ValueError("Matching LoginNoticeC2S and LoginReconnectTokenKeyS2C not found in PCAP")
+    raise ValueError("No usable login or reconnect session found in PCAP")
 
 def extract_session_file(path: str | Path) -> CapturedSession:
     return extract_session(Path(path).read_bytes())
